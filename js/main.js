@@ -1,28 +1,36 @@
 // js/main.js
 
-const menuList = [
-  "김치찌개 🍲",
-  "떡볶이 🌶️",
-  "치킨 🍗",
-  "돈까스 🍛",
-  "마라탕 🔥",
-  "제육볶음 🍖",
-  "파스타 🍝",
-  "햄버거 🍔",
-  "삼겹살 🥓"
-];
+const menuList = [];
+let foodDB = [];
 
-// 랜덤 메뉴 추천
-function recommendMenu() {
+async function loadFoodDB() {
+  try {
+    const response = await fetch("json/foodDB.json");
+    if (!response.ok) {
+      throw new Error(`foodDB.json 로드 실패: ${response.status}`);
+    }
 
-  const randomIndex =
-    Math.floor(Math.random() * menuList.length);
-
-  document.getElementById("today-menu").innerText =
-    menuList[randomIndex];
+    foodDB = await response.json();
+    menuList.push(...foodDB.map((item) => item.name));
+    recommendMenu();
+  } catch (error) {
+    console.error(error);
+    const todayMenu = document.getElementById("today-menu");
+    if (todayMenu) {
+      todayMenu.innerText = "메뉴 정보를 불러오는 중 오류가 발생했습니다.";
+    }
+  }
 }
 
-// 페이지 이동
+function recommendMenu() {
+  if (menuList.length === 0) {
+    return;
+  }
+
+  const randomIndex = Math.floor(Math.random() * menuList.length);
+  document.getElementById("today-menu").innerText = menuList[randomIndex];
+}
+
 function goWorldcup() {
   location.href = "worldcup.html";
 }
@@ -31,5 +39,4 @@ function goFridge() {
   location.href = "fridge.html";
 }
 
-// 첫 로딩 시 랜덤 메뉴
-recommendMenu();
+loadFoodDB();

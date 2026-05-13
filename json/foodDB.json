@@ -1,0 +1,1290 @@
+[
+  {
+    "id": 1,
+    "name": "볶음밥 🍚",
+    "category": "중식",
+    "image": "images/볶음밥 🍚.jpg",
+    "spicy": false,
+    "tags": [
+      "밥",
+      "볶음"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 2,
+    "name": "김치찌개 🍲",
+    "category": "한식",
+    "image": "images/김치찌개 🍲.jpg",
+    "spicy": true,
+    "tags": [
+      "국물",
+      "따뜻한"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 3,
+    "name": "떡볶이 🌶️",
+    "category": "한식",
+    "image": "images/떡볶이 🌶️.jpg",
+    "spicy": true,
+    "tags": [
+      "한식"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 4,
+    "name": "프라이드 치킨 🍗",
+    "category": "한식",
+    "image": "images/프라이드 치킨 🍗.jpg",
+    "spicy": false,
+    "tags": [
+      "치킨"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 5,
+    "name": "돈까스 🍛",
+    "category": "일식",
+    "image": "images/돈까스 🍛.jpg",
+    "spicy": false,
+    "tags": [
+      "한식"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 6,
+    "name": "마라탕 🔥",
+    "category": "중식",
+    "image": "images/마라탕 🔥.jpg",
+    "spicy": true,
+    "tags": [
+      "국물"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 7,
+    "name": "제육볶음 🍖",
+    "category": "중식",
+    "image": "images/제육볶음 🍖.jpg",
+    "spicy": false,
+    "tags": [
+      "볶음"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 8,
+    "name": "파스타 🍝",
+    "category": "양식",
+    "image": "images/파스타 🍝.jpg",
+    "spicy": false,
+    "tags": [
+      "면",
+      "양식"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 9,
+    "name": "로제 파스타 🍝",
+    "category": "양식",
+    "image": "images/로제 파스타 🍝.jpg",
+    "spicy": true,
+    "tags": [
+      "면",
+      "양식"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 10,
+    "name": "크림파스타 🍝",
+    "category": "양식",
+    "image": "images/크림파스타 🍝.jpg",
+    "spicy": false,
+    "tags": [
+      "면",
+      "양식"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 11,
+    "name": "투움바 파스타 🍝",
+    "category": "양식",
+    "image": "images/투움바 파스타 🍝.jpg",
+    "spicy": false,
+    "tags": [
+      "면",
+      "양식"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 12,
+    "name": "오일 파스타 🍝",
+    "category": "양식",
+    "image": "images/오일 파스타 🍝.jpg",
+    "spicy": false,
+    "tags": [
+      "면",
+      "양식"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 13,
+    "name": "라면 🍜",
+    "category": "한식",
+    "image": "images/라면 🍜.jpg",
+    "spicy": false,
+    "tags": [
+      "면"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 14,
+    "name": "라멘 🍜",
+    "category": "일식",
+    "image": "images/라멘 🍜.jpg",
+    "spicy": false,
+    "tags": [
+      "한식"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 15,
+    "name": "짜장면 🍜",
+    "category": "중식",
+    "image": "images/짜장면 🍜.jpg",
+    "spicy": false,
+    "tags": [
+      "면"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 16,
+    "name": "짜파게티 🍜",
+    "category": "중식",
+    "image": "images/짜파게티 🍜.jpg",
+    "spicy": false,
+    "tags": [
+      "한식"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 17,
+    "name": "우동 🍜",
+    "category": "일식",
+    "image": "images/우동 🍜.jpg",
+    "spicy": false,
+    "tags": [
+      "면"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 18,
+    "name": "짬뽕 🍜",
+    "category": "중식",
+    "image": "images/짬뽕 🍜.jpg",
+    "spicy": true,
+    "tags": [
+      "한식"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 19,
+    "name": "라볶이 🌶️",
+    "category": "중식",
+    "image": "images/라볶이 🌶️.jpg",
+    "spicy": false,
+    "tags": [
+      "한식"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 20,
+    "name": "떡라면 🍜",
+    "category": "한식",
+    "image": "images/떡라면 🍜.jpg",
+    "spicy": false,
+    "tags": [
+      "면"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 21,
+    "name": "차돌짬뽕 🍜",
+    "category": "중식",
+    "image": "images/차돌짬뽕 🍜.jpg",
+    "spicy": true,
+    "tags": [
+      "고기"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 22,
+    "name": "물냉면 🥢",
+    "category": "한식",
+    "image": "images/물냉면 🥢.jpg",
+    "spicy": false,
+    "tags": [
+      "면"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 23,
+    "name": "냉면 🥢",
+    "category": "한식",
+    "image": "images/냉면 🥢.jpg",
+    "spicy": false,
+    "tags": [
+      "면"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 24,
+    "name": "냉모밀 🥢",
+    "category": "한식",
+    "image": "images/냉모밀 🥢.jpg",
+    "spicy": false,
+    "tags": [
+      "한식"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 25,
+    "name": "잔치국수 🍜",
+    "category": "한식",
+    "image": "images/잔치국수 🍜.jpg",
+    "spicy": false,
+    "tags": [
+      "국물",
+      "면"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 26,
+    "name": "쌀국수 🍜",
+    "category": "한식",
+    "image": "images/쌀국수 🍜.jpg",
+    "spicy": false,
+    "tags": [
+      "국물",
+      "면"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 27,
+    "name": "삼겹살 🥓",
+    "category": "한식",
+    "image": "images/삼겹살 🥓.jpg",
+    "spicy": false,
+    "tags": [
+      "고기"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 28,
+    "name": "대패삼겹살 🥓",
+    "category": "한식",
+    "image": "images/대패삼겹살 🥓.jpg",
+    "spicy": false,
+    "tags": [
+      "고기"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 29,
+    "name": "돼지고기 삼겹살 🥓",
+    "category": "한식",
+    "image": "images/돼지고기 삼겹살 🥓.jpg",
+    "spicy": false,
+    "tags": [
+      "고기"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 30,
+    "name": "고추장삼겹살 🥓",
+    "category": "한식",
+    "image": "images/고추장삼겹살 🥓.jpg",
+    "spicy": true,
+    "tags": [
+      "고기"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 31,
+    "name": "돼지갈비 🍖",
+    "category": "한식",
+    "image": "images/돼지갈비 🍖.jpg",
+    "spicy": false,
+    "tags": [
+      "고기"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 32,
+    "name": "돼지 등갈비 🥩",
+    "category": "한식",
+    "image": "images/돼지 등갈비 🥩.jpg",
+    "spicy": false,
+    "tags": [
+      "고기"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 33,
+    "name": "돼지 뒷고기 🥩",
+    "category": "한식",
+    "image": "images/돼지 뒷고기 🥩.jpg",
+    "spicy": false,
+    "tags": [
+      "고기"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 34,
+    "name": "돼지고기 목살 🥩",
+    "category": "한식",
+    "image": "images/돼지고기 목살 🥩.jpg",
+    "spicy": false,
+    "tags": [
+      "고기"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 35,
+    "name": "돼지고기 갈메기살 🥩",
+    "category": "한식",
+    "image": "images/돼지고기 갈메기살 🥩.jpg",
+    "spicy": false,
+    "tags": [
+      "고기"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 36,
+    "name": "차돌박이 🥩",
+    "category": "한식",
+    "image": "images/차돌박이 🥩.jpg",
+    "spicy": false,
+    "tags": [
+      "고기"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 37,
+    "name": "우삼겹 🥩",
+    "category": "한식",
+    "image": "images/우삼겹 🥩.jpg",
+    "spicy": false,
+    "tags": [
+      "한식"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 38,
+    "name": "채끝살 스테이크 🥩",
+    "category": "양식",
+    "image": "images/채끝살 스테이크 🥩.jpg",
+    "spicy": false,
+    "tags": [
+      "고기",
+      "양식"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 39,
+    "name": "등심 스테이크 🥩",
+    "category": "양식",
+    "image": "images/등심 스테이크 🥩.jpg",
+    "spicy": false,
+    "tags": [
+      "고기",
+      "양식"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 40,
+    "name": "티본 스테이크 🥩",
+    "category": "양식",
+    "image": "images/티본 스테이크 🥩.jpg",
+    "spicy": false,
+    "tags": [
+      "고기",
+      "양식"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 41,
+    "name": "양갈비 🥩",
+    "category": "한식",
+    "image": "images/양갈비 🥩.jpg",
+    "spicy": false,
+    "tags": [
+      "고기"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 42,
+    "name": "LA갈비 🥩",
+    "category": "한식",
+    "image": "images/LA갈비 🥩.jpg",
+    "spicy": false,
+    "tags": [
+      "고기"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 43,
+    "name": "갈비찜 🥩",
+    "category": "한식",
+    "image": "images/갈비찜 🥩.jpg",
+    "spicy": true,
+    "tags": [
+      "고기"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 44,
+    "name": "매운갈비찜 🥩",
+    "category": "한식",
+    "image": "images/매운갈비찜 🥩.jpg",
+    "spicy": true,
+    "tags": [
+      "고기"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 45,
+    "name": "소갈비 🥩",
+    "category": "한식",
+    "image": "images/소갈비 🥩.jpg",
+    "spicy": false,
+    "tags": [
+      "고기"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 46,
+    "name": "바베큐폭립 🍖",
+    "category": "한식",
+    "image": "images/바베큐폭립 🍖.jpg",
+    "spicy": false,
+    "tags": [
+      "한식"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 47,
+    "name": "규카츠 🥩",
+    "category": "일식",
+    "image": "images/규카츠 🥩.jpg",
+    "spicy": false,
+    "tags": [
+      "한식"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 48,
+    "name": "도마호크 🍖",
+    "category": "한식",
+    "image": "images/도마호크 🍖.jpg",
+    "spicy": false,
+    "tags": [
+      "한식"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 49,
+    "name": "부채살 스테이크막창 🥩",
+    "category": "양식",
+    "image": "images/부채살 스테이크막창 🥩.jpg",
+    "spicy": false,
+    "tags": [
+      "고기",
+      "양식"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 50,
+    "name": "갈치조림 🍲",
+    "category": "한식",
+    "image": "images/갈치조림 🍲.jpg",
+    "spicy": false,
+    "tags": [
+      "한식"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 51,
+    "name": "돼지국밥 🍲",
+    "category": "한식",
+    "image": "images/돼지국밥 🍲.jpg",
+    "spicy": false,
+    "tags": [
+      "밥",
+      "국물"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 52,
+    "name": "순대국밥 🍲",
+    "category": "한식",
+    "image": "images/순대국밥 🍲.jpg",
+    "spicy": false,
+    "tags": [
+      "밥",
+      "국물"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 53,
+    "name": "수육국밥 🍲",
+    "category": "한식",
+    "image": "images/수육국밥 🍲.jpg",
+    "spicy": false,
+    "tags": [
+      "밥",
+      "국물"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 54,
+    "name": "감자탕 🍲",
+    "category": "한식",
+    "image": "images/감자탕 🍲.jpg",
+    "spicy": false,
+    "tags": [
+      "국물"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 55,
+    "name": "갈비탕 🍲",
+    "category": "한식",
+    "image": "images/갈비탕 🍲.jpg",
+    "spicy": false,
+    "tags": [
+      "국물",
+      "고기"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 56,
+    "name": "사골곰탕 🍲",
+    "category": "한식",
+    "image": "images/사골곰탕 🍲.jpg",
+    "spicy": false,
+    "tags": [
+      "국물"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 57,
+    "name": "설렁탕 🍲",
+    "category": "한식",
+    "image": "images/설렁탕 🍲.jpg",
+    "spicy": false,
+    "tags": [
+      "국물"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 58,
+    "name": "삼계탕 🍲",
+    "category": "한식",
+    "image": "images/삼계탕 🍲.jpg",
+    "spicy": false,
+    "tags": [
+      "국물"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 59,
+    "name": "닭백숙 🍲",
+    "category": "한식",
+    "image": "images/닭백숙 🍲.jpg",
+    "spicy": false,
+    "tags": [
+      "치킨"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 60,
+    "name": "뼈해장국 🍲",
+    "category": "한식",
+    "image": "images/뼈해장국 🍲.jpg",
+    "spicy": false,
+    "tags": [
+      "국물",
+      "따뜻한"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 61,
+    "name": "부대찌개 🍲",
+    "category": "한식",
+    "image": "images/부대찌개 🍲.jpg",
+    "spicy": false,
+    "tags": [
+      "국물"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 62,
+    "name": "된장찌개 🍲",
+    "category": "한식",
+    "image": "images/된장찌개 🍲.jpg",
+    "spicy": false,
+    "tags": [
+      "국물",
+      "따뜻한"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 63,
+    "name": "순두부찌개 🍲",
+    "category": "한식",
+    "image": "images/순두부찌개 🍲.jpg",
+    "spicy": false,
+    "tags": [
+      "국물",
+      "따뜻한"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 64,
+    "name": "돼지고기 김치찜 🍲",
+    "category": "한식",
+    "image": "images/돼지고기 김치찜 🍲.jpg",
+    "spicy": true,
+    "tags": [
+      "고기",
+      "따뜻한"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 65,
+    "name": "떡국 🍲",
+    "category": "한식",
+    "image": "images/떡국 🍲.jpg",
+    "spicy": false,
+    "tags": [
+      "국물"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 66,
+    "name": "육개장 🍲",
+    "category": "한식",
+    "image": "images/육개장 🍲.jpg",
+    "spicy": true,
+    "tags": [
+      "한식"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 67,
+    "name": "돼지김치짜글이 🍲",
+    "category": "한식",
+    "image": "images/돼지김치짜글이 🍲.jpg",
+    "spicy": true,
+    "tags": [
+      "따뜻한"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 68,
+    "name": "두부김치 🍲",
+    "category": "한식",
+    "image": "images/두부김치 🍲.jpg",
+    "spicy": true,
+    "tags": [
+      "따뜻한"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 69,
+    "name": "미역국 🍲",
+    "category": "한식",
+    "image": "images/미역국 🍲.jpg",
+    "spicy": false,
+    "tags": [
+      "국물"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 70,
+    "name": "김치전 🍳",
+    "category": "한식",
+    "image": "images/김치전 🍳.jpg",
+    "spicy": true,
+    "tags": [
+      "따뜻한"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 71,
+    "name": "양념치킨 🍗",
+    "category": "한식",
+    "image": "images/양념치킨 🍗.jpg",
+    "spicy": true,
+    "tags": [
+      "치킨"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 72,
+    "name": "간장치킨 🍗",
+    "category": "한식",
+    "image": "images/간장치킨 🍗.jpg",
+    "spicy": false,
+    "tags": [
+      "치킨"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 73,
+    "name": "닭강정 🍗",
+    "category": "한식",
+    "image": "images/닭강정 🍗.jpg",
+    "spicy": false,
+    "tags": [
+      "치킨"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 74,
+    "name": "옛날통닭 🍗",
+    "category": "한식",
+    "image": "images/옛날통닭 🍗.jpg",
+    "spicy": false,
+    "tags": [
+      "치킨"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 75,
+    "name": "닭발 🍗",
+    "category": "한식",
+    "image": "images/닭발 🍗.jpg",
+    "spicy": false,
+    "tags": [
+      "치킨"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 76,
+    "name": "무뼈닭발 🍗",
+    "category": "한식",
+    "image": "images/무뼈닭발 🍗.jpg",
+    "spicy": false,
+    "tags": [
+      "치킨"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 77,
+    "name": "닭꼬치 🍗",
+    "category": "한식",
+    "image": "images/닭꼬치 🍗.jpg",
+    "spicy": false,
+    "tags": [
+      "치킨"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 78,
+    "name": "탕수육 🍖",
+    "category": "중식",
+    "image": "images/탕수육 🍖.jpg",
+    "spicy": false,
+    "tags": [
+      "국물"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 79,
+    "name": "초밥 🍣",
+    "category": "일식",
+    "image": "images/초밥 🍣.jpg",
+    "spicy": false,
+    "tags": [
+      "밥"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 80,
+    "name": "육회초밥 🍣",
+    "category": "일식",
+    "image": "images/육회초밥 🍣.jpg",
+    "spicy": false,
+    "tags": [
+      "밥",
+      "해산물"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 81,
+    "name": "연어회 🐟",
+    "category": "일식",
+    "image": "images/연어회 🐟.jpg",
+    "spicy": false,
+    "tags": [
+      "해산물"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 82,
+    "name": "광어회 🐟",
+    "category": "일식",
+    "image": "images/광어회 🐟.jpg",
+    "spicy": false,
+    "tags": [
+      "해산물"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 83,
+    "name": "방어회 🐟",
+    "category": "일식",
+    "image": "images/방어회 🐟.jpg",
+    "spicy": false,
+    "tags": [
+      "해산물"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 84,
+    "name": "참치회 🍣",
+    "category": "일식",
+    "image": "images/참치회 🍣.jpg",
+    "spicy": false,
+    "tags": [
+      "해산물"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 85,
+    "name": "물회 🐟",
+    "category": "일식",
+    "image": "images/물회 🐟.jpg",
+    "spicy": false,
+    "tags": [
+      "해산물"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 86,
+    "name": "대게찜 🦀",
+    "category": "일식",
+    "image": "images/대게찜 🦀.jpg",
+    "spicy": false,
+    "tags": [
+      "한식"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 87,
+    "name": "랍스터버터구이 🦞",
+    "category": "일식",
+    "image": "images/랍스터버터구이 🦞.jpg",
+    "spicy": false,
+    "tags": [
+      "한식"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 88,
+    "name": "장어덮밥 🍛",
+    "category": "일식",
+    "image": "images/장어덮밥 🍛.jpg",
+    "spicy": false,
+    "tags": [
+      "밥"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 89,
+    "name": "간장게장 🦀",
+    "category": "한식",
+    "image": "images/간장게장 🦀.jpg",
+    "spicy": false,
+    "tags": [
+      "해산물"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 90,
+    "name": "양념게장 🦐",
+    "category": "한식",
+    "image": "images/양념게장 🦐.jpg",
+    "spicy": true,
+    "tags": [
+      "해산물"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 91,
+    "name": "훠궈 🍲",
+    "category": "중식",
+    "image": "images/훠궈 🍲.jpg",
+    "spicy": false,
+    "tags": [
+      "한식"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 92,
+    "name": "샤브샤브 🍲",
+    "category": "한식",
+    "image": "images/샤브샤브 🍲.jpg",
+    "spicy": false,
+    "tags": [
+      "한식"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 93,
+    "name": "마라샹궈 🔥",
+    "category": "중식",
+    "image": "images/마라샹궈 🔥.jpg",
+    "spicy": true,
+    "tags": [
+      "한식"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 94,
+    "name": "햄버거 🍔",
+    "category": "양식",
+    "image": "images/햄버거 🍔.jpg",
+    "spicy": false,
+    "tags": [
+      "양식"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 95,
+    "name": "피자 🍕",
+    "category": "양식",
+    "image": "images/피자 🍕.jpg",
+    "spicy": false,
+    "tags": [
+      "양식"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 96,
+    "name": "고구마 피자 🍕",
+    "category": "양식",
+    "image": "images/고구마 피자 🍕.jpg",
+    "spicy": false,
+    "tags": [
+      "양식"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 97,
+    "name": "포테이토 피자 🍕",
+    "category": "양식",
+    "image": "images/포테이토 피자 🍕.jpg",
+    "spicy": false,
+    "tags": [
+      "양식"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 98,
+    "name": "샌드위치 🥪",
+    "category": "양식",
+    "image": "images/샌드위치 🥪.jpg",
+    "spicy": false,
+    "tags": [
+      "양식"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 99,
+    "name": "로제떡볶이 🌶️",
+    "category": "중식",
+    "image": "images/로제떡볶이 🌶️.jpg",
+    "spicy": true,
+    "tags": [
+      "한식"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 100,
+    "name": "낙곱새 🍲",
+    "category": "한식",
+    "image": "images/낙곱새 🍲.jpg",
+    "spicy": true,
+    "tags": [
+      "한식"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 101,
+    "name": "곱창 🍲",
+    "category": "한식",
+    "image": "images/곱창 🍲.jpg",
+    "spicy": false,
+    "tags": [
+      "한식"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 102,
+    "name": "곱창전골 🍲",
+    "category": "한식",
+    "image": "images/곱창전골 🍲.jpg",
+    "spicy": false,
+    "tags": [
+      "한식"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 103,
+    "name": "대창 🍲",
+    "category": "한식",
+    "image": "images/대창 🍲.jpg",
+    "spicy": false,
+    "tags": [
+      "한식"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 104,
+    "name": "족발 🍖",
+    "category": "한식",
+    "image": "images/족발 🍖.jpg",
+    "spicy": false,
+    "tags": [
+      "한식"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 105,
+    "name": "찜닭 🍗",
+    "category": "한식",
+    "image": "images/찜닭 🍗.jpg",
+    "spicy": false,
+    "tags": [
+      "치킨"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 106,
+    "name": "비빔밥 🍚",
+    "category": "한식",
+    "image": "images/비빔밥 🍚.jpg",
+    "spicy": false,
+    "tags": [
+      "밥"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 107,
+    "name": "돌솥비빔밥 🍚",
+    "category": "한식",
+    "image": "images/돌솥비빔밥 🍚.jpg",
+    "spicy": false,
+    "tags": [
+      "밥"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 108,
+    "name": "육회 🍚",
+    "category": "일식",
+    "image": "images/육회 🍚.jpg",
+    "spicy": false,
+    "tags": [
+      "해산물"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 109,
+    "name": "육회비빔밥 🍚",
+    "category": "일식",
+    "image": "images/육회비빔밥 🍚.jpg",
+    "spicy": false,
+    "tags": [
+      "밥",
+      "해산물"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 110,
+    "name": "간장계란밥 🍚",
+    "category": "한식",
+    "image": "images/간장계란밥 🍚.jpg",
+    "spicy": false,
+    "tags": [
+      "밥"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 111,
+    "name": "감자전 🍳",
+    "category": "한식",
+    "image": "images/감자전 🍳.jpg",
+    "spicy": false,
+    "tags": [
+      "한식"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 112,
+    "name": "차슈덮밥 🍛",
+    "category": "한식",
+    "image": "images/차슈덮밥 🍛.jpg",
+    "spicy": false,
+    "tags": [
+      "밥"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 113,
+    "name": "김밥 🍙",
+    "category": "일식",
+    "image": "images/김밥 🍙.jpg",
+    "spicy": false,
+    "tags": [
+      "밥"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 114,
+    "name": "카레 🍛",
+    "category": "양식",
+    "image": "images/카레 🍛.jpg",
+    "spicy": false,
+    "tags": [
+      "양식"
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 115,
+    "name": "짜장밥 🍛",
+    "category": "중식",
+    "image": "images/짜장밥 🍛.jpg",
+    "spicy": false,
+    "tags": [
+      "밥"
+    ],
+    "createdBy": "admin"
+  }
+]
