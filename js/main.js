@@ -19,7 +19,7 @@ function goWorldcup() {
 }
 
 function goFridge() {
-  location.href = "fridge.html";
+  location.href = "recipe.html";
 }
 
 // 첫 실행
