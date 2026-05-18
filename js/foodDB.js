@@ -9,530 +9,1277 @@ const foodDB = [
   // ==========================
   // 1: 밥 (Category 1)
   // ==========================
-  { "id": 1101, "name": "간장계란밥 🍚",
+  {
+    "id": 1101, "name": "간장계란밥 🍚",
     "category": "밥",
     "image": "images/간장계란밥.jpg",
     "spicy": false,
     "tags": ["한식", "밥", "간단", "가성비"],
-    "createdBy": "admin" },
-  { "id": 1102, "name": "김밥 🍙",
+    "ingredients": [
+      { "name": "밥", "quantity": "1공기" },
+      { "name": "계란", "quantity": "1개" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 1102, "name": "김밥 🍙",
     "category": "밥",
     "image": "images/김밥.jpg",
     "spicy": false,
     "tags": ["한식", "밥", "간편식"],
-    "createdBy": "admin" },
-  { "id": 1103, "name": "비빔밥 🍚",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 1103, "name": "비빔밥 🍚",
     "category": "밥",
     "image": "images/비빔밥.jpg",
     "spicy": true,
     "tags": ["한식", "밥", "비빔"],
-    "createdBy": "admin" },
-  { "id": 1104, "name": "돌솥비빔밥 🍚",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 1104, "name": "돌솥비빔밥 🍚",
     "category": "밥",
     "image": "images/돌솥비빔밥.jpg",
     "spicy": true,
     "tags": ["한식", "밥", "비빔"],
-    "createdBy": "admin" },
-  { "id": 1105, "name": "김치볶음밥 🍳",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 1105, "name": "김치볶음밥 🍳",
     "category": "밥",
     "image": "images/김치볶음밥.jpg",
     "spicy": true,
     "tags": ["한식", "밥", "볶음", "간단"],
-    "createdBy": "admin" },
-  { "id": 1106, "name": "육회비빔밥 🍚",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 1106, "name": "육회비빔밥 🍚",
     "category": "밥",
     "image": "images/육회비빔밥.jpg",
     "spicy": true,
     "tags": ["한식", "밥", "고기", "비빔"],
-    "createdBy": "admin" },
-  { "id": 1107, "name": "참치비빔밥 🍚",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 1107, "name": "참치비빔밥 🍚",
     "category": "밥",
     "image": "images/참치비빔밥.jpg",
     "spicy": true,
     "tags": ["한식", "밥", "비빔", "간단"],
-    "createdBy": "admin" },
-  { "id": 1108, "name": "스팸마요덮밥 🍛",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 1108, "name": "스팸마요덮밥 🍛",
     "category": "밥",
     "image": "images/스팸마요덮밥.jpg",
     "spicy": false,
     "tags": ["한식", "밥", "간단", "가성비"],
-    "createdBy": "admin" },
-  { "id": 1201, "name": "볶음밥 🍚",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 1201, "name": "볶음밥 🍚",
     "category": "밥",
     "image": "images/볶음밥.jpg",
     "spicy": false,
     "tags": ["중식", "밥", "볶음"],
-    "createdBy": "admin" },
-  { "id": 1202, "name": "짜장밥 🍛",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 1202, "name": "짜장밥 🍛",
     "category": "밥",
     "image": "images/짜장밥.jpg",
     "spicy": false,
     "tags": ["중식", "밥"],
-    "createdBy": "admin" },
-  { "id": 1301, "name": "육회초밥 🍣",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 1301, "name": "육회초밥 🍣",
     "category": "밥",
     "image": "images/육회초밥.jpg",
     "spicy": false,
     "tags": ["일식", "밥", "고기"],
-    "createdBy": "admin" },
-  { "id": 1302, "name": "장어덮밥 🍛",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 1302, "name": "장어덮밥 🍛",
     "category": "밥",
     "image": "images/장어덮밥.jpg",
     "spicy": false,
     "tags": ["일식", "밥", "해산물"],
-    "createdBy": "admin" },
-  { "id": 1303, "name": "차슈덮밥 🍛",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 1303, "name": "차슈덮밥 🍛",
     "category": "밥",
     "image": "images/차슈덮밥.jpg",
     "spicy": false,
     "tags": ["일식", "밥", "고기"],
-    "createdBy": "admin" },
-  { "id": 1304, "name": "초밥 🍣",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 1304, "name": "초밥 🍣",
     "category": "밥",
     "image": "images/초밥.jpg",
     "spicy": false,
     "tags": ["일식", "밥", "해산물"],
-    "createdBy": "admin" },
-  { "id": 1305, "name": "텐동 🍤",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 1305, "name": "텐동 🍤",
     "category": "밥",
     "image": "images/텐동.jpg",
     "spicy": false,
     "tags": ["일식", "밥", "튀김"],
-    "createdBy": "admin" },
-  { "id": 1501, "name": "카레 🍛",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 1501, "name": "카레 🍛",
     "category": "밥",
     "image": "images/카레.jpg",
     "spicy": false,
     "tags": ["기타", "밥", "간단"],
-    "createdBy": "admin" },
-  { "id": 1502, "name": "포케 🥗",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 1502, "name": "포케 🥗",
     "category": "밥",
     "image": "images/포케.jpg",
     "spicy": false,
     "tags": ["기타", "해산물", "간편식"],
-    "createdBy": "admin" },
-  { "id": 1503, "name": "컵라면 볶음밥 🍜",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 1503, "name": "컵라면 볶음밥 🍜",
     "category": "밥",
     "image": "images/컵라면볶음밥.jpg",
     "spicy": true,
     "tags": ["퓨전", "밥", "간단", "편의점"],
-    "createdBy": "admin" },
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
 
   // ==========================
   // 2: 면 (Category 2)
   // ==========================
-  { "id": 2101, "name": "냉면 🥢",
+  {
+    "id": 2101, "name": "냉면 🥢",
     "category": "면",
     "image": "images/냉면.jpg",
     "spicy": false,
     "tags": ["한식", "면"],
-    "createdBy": "admin" },
-  { "id": 2102, "name": "물냉면 🥢",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 2102, "name": "물냉면 🥢",
     "category": "면",
     "image": "images/물냉면.jpg",
     "spicy": false,
     "tags": ["한식", "면", "국물"],
-    "createdBy": "admin" },
-  { "id": 2103, "name": "잔치국수 🍜",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 2103, "name": "잔치국수 🍜",
     "category": "면",
     "image": "images/잔치국수.jpg",
     "spicy": false,
     "tags": ["한식", "면", "국물"],
-    "createdBy": "admin" },
-  { "id": 2104, "name": "짜파게티 🍜",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 2104, "name": "짜파게티 🍜",
     "category": "면",
     "image": "images/짜파게티.jpg",
     "spicy": false,
     "tags": ["한식", "면", "간단"],
-    "createdBy": "admin" },
-  { "id": 2201, "name": "짜장면 🍜",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 2201, "name": "짜장면 🍜",
     "category": "면",
     "image": "images/짜장면.jpg",
     "spicy": false,
     "tags": ["중식", "면"],
-    "createdBy": "admin" },
-  { "id": 2202, "name": "짬뽕 🍜",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 2202, "name": "짬뽕 🍜",
     "category": "면",
     "image": "images/짬뽕.jpg",
     "spicy": true,
     "tags": ["중식", "면", "국물"],
-    "createdBy": "admin" },
-  { "id": 2203, "name": "차돌짬뽕 🍜",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 2203, "name": "차돌짬뽕 🍜",
     "category": "면",
     "image": "images/차돌짬뽕.jpg",
     "spicy": true,
     "tags": ["중식", "면", "국물", "고기"],
-    "createdBy": "admin" },
-  { "id": 2301, "name": "냉모밀 🥢",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 2301, "name": "냉모밀 🥢",
     "category": "면",
     "image": "images/냉모밀.jpg",
     "spicy": false,
     "tags": ["일식", "면"],
-    "createdBy": "admin" },
-  { "id": 2302, "name": "라멘 🍜",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 2302, "name": "라멘 🍜",
     "category": "면",
     "image": "images/라멘.jpg",
     "spicy": false,
     "tags": ["일식", "면", "국물"],
-    "createdBy": "admin" },
-  { "id": 2303, "name": "우동 🍜",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 2303, "name": "우동 🍜",
     "category": "면",
     "image": "images/우동.jpg",
     "spicy": false,
     "tags": ["일식", "면", "국물"],
-    "createdBy": "admin" },
-  { "id": 2304, "name": "마제소바 🥢",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 2304, "name": "마제소바 🥢",
     "category": "면",
     "image": "images/마제소바.jpg",
     "spicy": false,
     "tags": ["일식", "면", "비빔"],
-    "createdBy": "admin" },
-  { "id": 2401, "name": "로제 파스타 🍝",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 2401, "name": "로제 파스타 🍝",
     "category": "면",
     "image": "images/로제 파스타.jpg",
     "spicy": false,
     "tags": ["양식", "면"],
-    "createdBy": "admin" },
-  { "id": 2402, "name": "오일 파스타 🍝",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 2402, "name": "오일 파스타 🍝",
     "category": "면",
     "image": "images/오일 파스타.jpg",
     "spicy": false,
     "tags": ["양식", "면"],
-    "createdBy": "admin" },
-  { "id": 2403, "name": "크림파스타 🍝",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 2403, "name": "크림파스타 🍝",
     "category": "면",
     "image": "images/크림파스타.jpg",
     "spicy": false,
     "tags": ["양식", "면"],
-    "createdBy": "admin" },
-  { "id": 2404, "name": "투움바 파스타 🍝",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 2404, "name": "투움바 파스타 🍝",
     "category": "면",
     "image": "images/투움바 파스타.jpg",
     "spicy": true,
     "tags": ["양식", "면"],
-    "createdBy": "admin" },
-  { "id": 2405, "name": "파스타 🍝",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 2405, "name": "파스타 🍝",
     "category": "면",
     "image": "images/파스타.jpg",
     "spicy": false,
     "tags": ["양식", "면"],
-    "createdBy": "admin" },
-  { "id": 2406, "name": "뇨끼 🥟",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 2406, "name": "뇨끼 🥟",
     "category": "면",
     "image": "images/뇨끼.jpg",
     "spicy": false,
     "tags": ["양식", "면"],
-    "createdBy": "admin" },
-  { "id": 2407, "name": "원팬 토마토 파스타 🍝",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 2407, "name": "원팬 토마토 파스타 🍝",
     "category": "면",
     "image": "images/토마토파스타.jpg",
     "spicy": false,
     "tags": ["양식", "면", "간단"],
-    "createdBy": "admin" },
-  { "id": 2501, "name": "쌀국수 🍜",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 2501, "name": "쌀국수 🍜",
     "category": "면",
     "image": "images/쌀국수.jpg",
     "spicy": false,
     "tags": ["기타", "면", "국물"],
-    "createdBy": "admin" },
-  { "id": 2502, "name": "팟타이 🍜",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 2502, "name": "팟타이 🍜",
     "category": "면",
     "image": "images/팟타이.jpg",
     "spicy": false,
     "tags": ["기타", "면", "볶음"],
-    "createdBy": "admin" },
-  { "id": 2102, "name": "라면 🍜",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 2102, "name": "라면 🍜",
     "category": "분식",
     "image": "images/라면.jpg",
     "spicy": true,
     "tags": ["한식", "분식", "면", "간단", "가성비"],
-    "createdBy": "admin" },
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
 
   // ==========================
   // 3: 고기 (Category 3)
   // ==========================
-  { "id": 3101, "name": "제육볶음 🍖",
+  {
+    "id": 3101, "name": "제육볶음 🍖",
     "category": "고기",
     "image": "images/제육볶음.jpg",
     "spicy": true,
     "tags": ["한식", "고기", "볶음"],
-    "createdBy": "admin" },
-  { "id": 3102, "name": "삼겹살 🥓",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 3102, "name": "삼겹살 🥓",
     "category": "고기",
     "image": "images/삼겹살.jpg",
     "spicy": false,
     "tags": ["한식", "고기", "구이"],
-    "createdBy": "admin" },
-  { "id": 3103, "name": "소시지 야채볶음 🥓",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 3103, "name": "소시지 야채볶음 🥓",
     "category": "고기",
     "image": "images/쏘야.jpg",
     "spicy": false,
     "tags": ["한식", "고기", "볶음", "간단"],
-    "createdBy": "admin" },
-  { "id": 3104, "name": "족발 🍖",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 3104, "name": "족발 🍖",
     "category": "고기",
     "image": "images/족발.jpg",
     "spicy": false,
     "tags": ["한식", "고기"],
-    "createdBy": "admin" },
-  { "id": 3105, "name": "찜닭 🍗",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 3105, "name": "찜닭 🍗",
     "category": "고기",
     "image": "images/찜닭.jpg",
     "spicy": false,
     "tags": ["한식", "고기", "찜"],
-    "createdBy": "admin" },
-  { "id": 3106, "name": "간장치킨 🍗",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 3106, "name": "간장치킨 🍗",
     "category": "고기",
     "image": "images/간장치킨.jpg",
     "spicy": false,
     "tags": ["한식", "고기", "튀김"],
-    "createdBy": "admin" },
-  { "id": 3107, "name": "양념치킨 🍗",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 3107, "name": "양념치킨 🍗",
     "category": "고기",
     "image": "images/양념치킨.jpg",
     "spicy": true,
     "tags": ["한식", "고기", "튀김"],
-    "createdBy": "admin" },
-  { "id": 3108, "name": "프라이드 치킨 🍗",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 3108, "name": "프라이드 치킨 🍗",
     "category": "고기",
     "image": "images/프라이드 치킨.jpg",
     "spicy": false,
     "tags": ["한식", "고기", "튀김"],
-    "createdBy": "admin" },
-  { "id": 3119, "name": "막창 🍲",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 3119, "name": "막창 🍲",
     "category": "고기",
     "image": "images/막창.jpg",
     "spicy": false,
     "tags": ["한식", "고기", "구이"],
-    "createdBy": "admin" },
-  { "id": 3201, "name": "탕수육 🍖",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 3201, "name": "탕수육 🍖",
     "category": "고기",
     "image": "images/탕수육.jpg",
     "spicy": false,
     "tags": ["중식", "고기", "튀김"],
-    "createdBy": "admin" },
-  { "id": 3202, "name": "양꼬치 🍢",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 3202, "name": "양꼬치 🍢",
     "category": "고기",
     "image": "images/양꼬치.jpg",
     "spicy": false,
     "tags": ["중식", "고기", "구이"],
-    "createdBy": "admin" },
-  { "id": 3301, "name": "돈까스 🍛",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 3301, "name": "돈까스 🍛",
     "category": "고기",
     "image": "images/돈까스.jpg",
     "spicy": false,
     "tags": ["일식", "고기", "튀김"],
-    "createdBy": "admin" },
-  { "id": 3302, "name": "치즈카츠 🧀",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 3302, "name": "치즈카츠 🧀",
     "category": "고기",
     "image": "images/치즈카츠.jpg",
     "spicy": false,
     "tags": ["일식", "고기", "튀김"],
-    "createdBy": "admin" },
-  { "id": 3303, "name": "규카츠 🥩",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 3303, "name": "규카츠 🥩",
     "category": "고기",
     "image": "images/규카츠.jpg",
     "spicy": false,
     "tags": ["일식", "고기", "튀김"],
-    "createdBy": "admin" },
-  { "id": 3401, "name": "등심 스테이크 🥩",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 3401, "name": "등심 스테이크 🥩",
     "category": "고기",
     "image": "images/등심 스테이크.jpg",
     "spicy": false,
     "tags": ["양식", "고기", "구이"],
-    "createdBy": "admin" },
-  { "id": 3402, "name": "바베큐폭립 🍖",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 3402, "name": "바베큐폭립 🍖",
     "category": "고기",
     "image": "images/바베큐폭립.jpg",
     "spicy": false,
     "tags": ["양식", "고기", "구이"],
-    "createdBy": "admin" },
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
 
   // ==========================
   // 4: 국물 (Category 4)
   // ==========================
-  { "id": 4101, "name": "김치찌개 🍲",
+  {
+    "id": 4101, "name": "김치찌개 🍲",
     "category": "국물",
     "image": "images/김치찌개.jpg",
     "spicy": true,
     "tags": ["한식", "국물", "간단"],
-    "createdBy": "admin" },
-  { "id": 4102, "name": "된장찌개 🍲",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 4102, "name": "된장찌개 🍲",
     "category": "국물",
     "image": "images/된장찌개.jpg",
     "spicy": false,
     "tags": ["한식", "국물", "가성비"],
-    "createdBy": "admin" },
-  { "id": 4103, "name": "미역국 🍲",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 4103, "name": "미역국 🍲",
     "category": "국물",
     "image": "images/미역국.jpg",
     "spicy": false,
     "tags": ["한식", "국물", "간단"],
-    "createdBy": "admin" },
-  { "id": 4104, "name": "부대찌개 🍲",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 4104, "name": "부대찌개 🍲",
     "category": "국물",
     "image": "images/부대찌개.jpg",
     "spicy": true,
     "tags": ["한식", "국물"],
-    "createdBy": "admin" },
-  { "id": 4105, "name": "계란국 🍲",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 4105, "name": "계란국 🍲",
     "category": "국물",
     "image": "images/계란국.jpg",
     "spicy": false,
     "tags": ["한식", "국물", "간단", "가성비"],
-    "createdBy": "admin" },
-  { "id": 4201, "name": "마라탕 🔥",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 4201, "name": "마라탕 🔥",
     "category": "국물",
     "image": "images/마라탕.jpg",
     "spicy": true,
     "tags": ["중식", "국물"],
-    "createdBy": "admin" },
-  { "id": 4202, "name": "훠궈 🍲",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 4202, "name": "훠궈 🍲",
     "category": "국물",
     "image": "images/훠궈.jpg",
     "spicy": true,
     "tags": ["중식", "국물"],
-    "createdBy": "admin" },
-  { "id": 4301, "name": "샤브샤브 🍲",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 4301, "name": "샤브샤브 🍲",
     "category": "국물",
     "image": "images/샤브샤브.jpg",
     "spicy": false,
     "tags": ["일식", "국물"],
-    "createdBy": "admin" },
-  { "id": 4501, "name": "바지락술찜 🍲",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 4501, "name": "바지락술찜 🍲",
     "category": "국물",
     "image": "images/바지락술찜.jpg",
     "spicy": true,
     "tags": ["퓨전", "국물", "해산물"],
-    "createdBy": "admin" },
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
 
   // ==========================
   // 5: 해산물 (Category 5)
   // ==========================
-  { "id": 5101, "name": "간장게장 🦀",
+  {
+    "id": 5101, "name": "간장게장 🦀",
     "category": "해산물",
     "image": "images/간장게장.jpg",
     "spicy": false,
     "tags": ["한식", "해산물"],
-    "createdBy": "admin" },
-  { "id": 5102, "name": "양념게장 🦐",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 5102, "name": "양념게장 🦐",
     "category": "해산물",
     "image": "images/양념게장.jpg",
     "spicy": true,
     "tags": ["한식", "해산물"],
-    "createdBy": "admin" },
-  { "id": 5301, "name": "연어회 🐟",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 5301, "name": "연어회 🐟",
     "category": "해산물",
     "image": "images/연어회.jpg",
     "spicy": false,
     "tags": ["일식", "해산물"],
-    "createdBy": "admin" },
-  { "id": 5302, "name": "참치회 🍣",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 5302, "name": "참치회 🍣",
     "category": "해산물",
     "image": "images/참치회.jpg",
     "spicy": false,
     "tags": ["일식", "해산물"],
-    "createdBy": "admin" },
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
 
   // ==========================
   // 6: 분식 (Category 6)
   // ==========================
-  { "id": 6101, "name": "떡볶이 🌶️",
+  {
+    "id": 6101, "name": "떡볶이 🌶️",
     "category": "분식",
     "image": "images/떡볶이.jpg",
     "spicy": true,
     "tags": ["한식", "분식", "간단"],
-    "createdBy": "admin" },
-  { "id": 6102, "name": "로제떡볶이 🌶️",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 6102, "name": "로제떡볶이 🌶️",
     "category": "분식",
     "image": "images/로제떡볶이.jpg",
     "spicy": true,
     "tags": ["한식", "분식"],
-    "createdBy": "admin" },
-  { "id": 6501, "name": "만두 🥟",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 6501, "name": "만두 🥟",
     "category": "분식",
     "image": "images/만두.jpg",
     "spicy": true,
     "tags": ["퓨전", "간단", "튀김"],
-    "createdBy": "admin" },
-  { "id": 6502, "name": "마크정식 🍜",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 6502, "name": "마크정식 🍜",
     "category": "분식",
     "image": "images/마크정식.jpg",
     "spicy": true,
     "tags": ["퓨전", "편의점", "간단"],
-    "createdBy": "admin" },
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
 
   // ==========================
   // 7: 양식(빵/피자류) (Category 7)
   // ==========================
-  { "id": 7401, "name": "피자 🍕",
+  {
+    "id": 7401, "name": "피자 🍕",
     "category": "양식",
     "image": "images/피자.jpg",
     "spicy": false,
     "tags": ["양식", "피자"],
-    "createdBy": "admin" },
-  { "id": 7402, "name": "햄버거 🍔",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 7402, "name": "햄버거 🍔",
     "category": "양식",
     "image": "images/햄버거.jpg",
     "spicy": false,
     "tags": ["양식", "빵", "고기"],
-    "createdBy": "admin" },
-  { "id": 7403, "name": "샌드위치 🥪",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 7403, "name": "샌드위치 🥪",
     "category": "양식",
     "image": "images/샌드위치.jpg",
     "spicy": false,
     "tags": ["양식", "빵", "간단"],
-    "createdBy": "admin" },
-  { "id": 7404, "name": "또띠아 피자 🍕",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 7404, "name": "또띠아 피자 🍕",
     "category": "양식",
     "image": "images/또띠아피자.jpg",
     "spicy": false,
     "tags": ["양식", "피자", "간단", "가성비"],
-    "createdBy": "admin" },
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
 
   // ==========================
   // 8: 기타/반찬 (Category 8)
   // ==========================
-  { "id": 8101, "name": "김치전 🍳",
+  {
+    "id": 8101, "name": "김치전 🍳",
     "category": "기타",
     "image": "images/김치전.jpg",
     "spicy": true,
     "tags": ["한식", "간단", "가성비"],
-    "createdBy": "admin" },
-  { "id": 8102, "name": "두부조림 🍱",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 8102, "name": "두부조림 🍱",
     "category": "기타",
     "image": "images/두부조림.jpg",
     "spicy": true,
     "tags": ["한식", "가성비", "간단"],
-    "createdBy": "admin" },
-  { "id": 8103, "name": "진미채볶음 🥢",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 8103, "name": "진미채볶음 🥢",
     "category": "기타",
     "image": "images/진미채볶음.jpg",
     "spicy": true,
     "tags": ["한식", "볶음"],
-    "createdBy": "admin" },
-  { "id": 8201, "name": "마라샹궈 🔥",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 8201, "name": "마라샹궈 🔥",
     "category": "기타",
     "image": "images/마라샹궈.jpg",
     "spicy": true,
     "tags": ["중식", "볶음"],
-    "createdBy": "admin" },
-  { "id": 8501, "name": "월남쌈 🌯",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 8501, "name": "월남쌈 🌯",
     "category": "기타",
     "image": "images/월남쌈.jpg",
     "spicy": false,
     "tags": ["기타", "간편식"],
-    "createdBy": "admin" },
-  { "id": 8502, "name": "타코 🌮",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 8502, "name": "타코 🌮",
     "category": "기타",
     "image": "images/타코.jpg",
     "spicy": true,
     "tags": ["기타", "간편식"],
-    "createdBy": "admin" },
-  { "id": 8503, "name": "불닭계란찜 🍮",
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  },
+  {
+    "id": 8503, "name": "불닭계란찜 🍮",
     "category": "기타",
     "image": "images/불닭계란찜.jpg",
     "spicy": true,
     "tags": ["퓨전", "간단", "편의점"],
-    "createdBy": "admin" }
+    "ingredients": [
+      { "name": "재료", "quantity": "갯수" },
+      { "name": "재료", "quantity": "갯수" },],
+    "recipe": [
+      "단계1",
+      "단계2",
+    ],
+    "createdBy": "admin"
+  }
 ];
