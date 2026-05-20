@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>오늘 뭐 먹지? - 레시피 & 장바구니 통합 플랫폼</title>
+  <style>
+    /* 1. 디자인 시스템 & 기본 레이아웃 */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); color: #333; min-height: 100vh; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+    
+    .container { width: 100%; max-width: 1000px; background: rgba(255, 255, 255, 0.95); padding: 40px; border-radius: 30px; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1); margin-bottom: 30px; }
+
+    /* 상단 헤더 영역 */
+    .hero { text-align: center; margin-bottom: 40px; }
+    .sub-title { font-size: 1rem; color: #666; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; }
+    .hero h1 { font-size: 2.8rem; color: #2d3436; margin-bottom: 30px; }
+    .today-card { background: #ffffff; padding: 30px; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); display: inline-block; min-width: 340px; border: 1px solid #eee; }
+    .today-label { display: inline-block; background: #ff4757; color: #fff; padding: 5px 12px; border-radius: 50px; font-size: 0.8rem; font-weight: bold; margin-bottom: 15px; }
+    #today-menu { font-size: 2.2rem; margin-bottom: 20px; color: #2d3436; }
+    
+    /* 공통 버튼 */
+    button.primary-btn { padding: 12px 25px; font-size: 1rem; font-weight: bold; color: #fff; background-color: #ff4757; border: none; border-radius: 50px; cursor: pointer; box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3); transition: all 0.2s ease; margin: 5px; }
+    button.primary-btn:hover { background-color: #ff6b81; transform: translateY(-2px); }
+    button.primary-btn:disabled { background-color: #ccc; cursor: not-allowed; box-shadow: none; transform: none; }
+    
+    button.secondary-btn { padding: 12px 25px; font-size: 1rem; font-weight: bold; color: #333; background-color: #e1e4e6; border: none; border-radius: 50px; cursor: pointer; transition: all 0.2s ease; margin: 5px; }
+    button.secondary-btn:hover { background-color: #d1d4d6; }
+
+    /* 메인 그리드 메뉴 */
+    .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-top: 20px; }
+    .menu-card { background: #ffffff; padding: 30px; border-radius: 20px; border: 2px solid transparent; box-shadow: 0 8px 20px rgba(0,0,0,0.04); cursor: pointer; transition: all 0.3s ease; text-align: left; }
+    .menu-card:hover { transform: translateY(-8px); border-color: #ff4757; box-shadow: 0 15px 30px rgba(255, 71, 87, 0.15); }
+    .card-icon { font-size: 2.5rem; margin-bottom: 15px; }
+    .menu-card h2 { font-size: 1.4rem; color: #2d3436; margin-bottom: 10px; }
+    .menu-card p { font-size: 0.95rem; color: #7f8c8d; line-height: 1.5; margin-bottom: 20px; }
+    .move-text { font-weight: bold; color: #ff4757; }
+
+    /* 모달 구조 및 디자인 */
+    .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(5px); z-index: 100; justify-content: center; align-items: center; }
+    .modal-content { background: #fff; padding: 40px; border-radius: 25px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); text-align: center; position: relative; max-width: 90%; width: 680px; max-height: 85vh; overflow-y: auto; animation: modalFadeIn 0.3s ease; }
+    @keyframes modalFadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+    .close-modal-btn { position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #aaa; }
+    .close-modal-btn:hover { color: #333; }
+
+    /* [A] 돌림판 */
+    .roulette-box { position: relative; width: 320px; height: 320px; margin: 20px auto; }
+    .roulette-arrow { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent; border-top: 20px solid #ff4757; z-index: 10; }
+    canvas { border-radius: 50%; background: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+    .flow-choice-box { margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 15px; display: none; }
+
+    /* [B] 음식 월드컵 */
+    .worldcup-box { width: 750px; max-width: 95vw; }
+    .match-container { display: flex; align-items: center; justify-content: center; gap: 20px; margin: 20px 0; }
+    .food-card-vs { flex: 1; background: #f8f9fa; border: 3px solid #eee; border-radius: 15px; overflow: hidden; cursor: pointer; transition: all 0.2s ease; height: 180px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; }
+    .food-card-vs:hover { transform: scale(1.03); border-color: #ff4757; box-shadow: 0 10px 20px rgba(255,71,87,0.1); }
+    .food-title { font-size: 1.6rem; font-weight: bold; color: #2d3436; text-align: center; margin-bottom: 10px; }
+    .food-tags { display: flex; gap: 5px; flex-wrap: wrap; justify-content: center; }
+    .tag { background: #e0f2fe; color: #0369a1; font-size: 0.75rem; padding: 3px 8px; border-radius: 4px; font-weight: 500; }
+    .vs-text { font-size: 1.2rem; font-weight: 900; background: #333; color: #fff; padding: 15px; border-radius: 50%; }
+    .wc-winner-view { display: none; text-align: center; }
+
+    /* [C] 냉장고를 부탁해 (검색 및 레시피 출력) */
+    .search-box { display: flex; gap: 10px; margin: 20px 0; }
+    .search-input { flex: 1; padding: 12px 20px; font-size: 1rem; border: 2px solid #ddd; border-radius: 50px; outline: none; transition: border-color 0.2s; }
+    .search-input:focus { border-color: #ff4757; }
+    
+    .recommend-tags { text-align: left; margin-bottom: 20px; }
+    .recommend-tags p { font-size: 0.85rem; color: #666; margin-bottom: 8px; font-weight: bold; }
+    .keyword-tag { display: inline-block; background: #f1f2f6; color: #57606f; padding: 5px 12px; border-radius: 50px; font-size: 0.85rem; margin-right: 6px; margin-bottom: 6px; cursor: pointer; transition: all 0.2s; }
+    .keyword-tag:hover { background: #ff4757; color: #fff; }
+
+    .recipe-list { text-align: left; margin-top: 20px; display: flex; flex-direction: column; gap: 20px; }
+    .recipe-item { background: #f8f9fa; border: 1px solid #e1e4e6; border-radius: 15px; padding: 20px; transition: all 0.2s; }
+    .recipe-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px dashed #ddd; padding-bottom: 10px; }
+    .recipe-name { font-size: 1.3rem; font-weight: bold; color: #2d3436; }
+    
+    /* 5번 요구사항: 레시피 내 재료 확인 체크 박스 영역 */
+    .ingredient-check-section { background: #fff; padding: 12px; border-radius: 10px; border: 1px solid #e2e8f0; margin-bottom: 12px; }
+    .ingredient-check-title { font-size: 0.9rem; font-weight: bold; color: #4a5568; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+    .check-grid { display: flex; flex-wrap: wrap; gap: 12px; }
+    .check-label { display: flex; align-items: center; gap: 6px; font-size: 0.9rem; cursor: pointer; background: #f1f5f9; padding: 4px 10px; border-radius: 6px; transition: background 0.2s; }
+    .check-label:hover { background: #e2e8f0; }
+    .check-label input[type="checkbox"] { width: 15px; height: 15px; accent-color: #ff4757; }
+
+    .recipe-steps { background: #f1f5f9; padding: 15px; border-radius: 10px; font-size: 0.95rem; color: #334155; line-height: 1.6; }
+    .no-result { color: #aaa; text-align: center; padding: 40px 0; font-size: 1rem; }
+
+    /* 6번 요구사항: 메인 하단 고정 장바구니 리스트 디자인 */
+    .fridge-cart-container { width: 100%; max-width: 1000px; background: #fff; border-radius: 25px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #e1e4e6; text-align: left; }
+    .cart-title { font-size: 1.3rem; font-weight: bold; color: #2d3436; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; border-bottom: 2px solid #ff4757; padding-bottom: 8px; }
+    .cart-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    .cart-table th { background: #f8f9fa; padding: 12px; font-size: 0.9rem; color: #666; font-weight: bold; border-bottom: 1px solid #eee; text-align: left; }
+    .cart-table td { padding: 12px; border-bottom: 1px solid #f1f1f1; font-size: 0.95rem; vertical-align: middle; }
+    .cart-item-name { font-weight: bold; color: #333; }
+    .cart-memo-input { width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px; outline: none; font-size: 0.85rem; }
+    .cart-memo-input:focus { border-color: #ff4757; }
+    .shop-link { display: inline-flex; align-items: center; gap: 4px; color: #0284c7; font-weight: bold; text-decoration: none; font-size: 0.85rem; background: #e0f2fe; padding: 6px 12px; border-radius: 20px; transition: background 0.2s; }
+    .shop-link:hover { background: #bae6fd; text-decoration: underline; }
+    .delete-cart-btn { background: #ff7675; color: #fff; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.8rem; }
+    .delete-cart-btn:hover { background: #ff4757; }
+    .empty-cart-msg { text-align: center; color: #aaa; padding: 20px 0; font-size: 0.95rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="hero">
+      <p class="sub-title">혼밥러를 위한 메뉴 추천 & 스마트 레시피 플랫폼</p>
+      <h1>오늘 뭐 먹지? 😋</h1>
+      <div class="today-card">
+        <span class="today-label">TODAY MENU</span>
+        <h2 id="today-menu">짜장면 🥢</h2>
+        <button class="primary-btn" onclick="openRouletteModal()">다시 추천 (돌림판)</button>
+      </div>
+    </header>
+    
+    <section class="menu-grid">
+      <div class="menu-card" onclick="openWorldcupModal()">
+        <div class="card-icon">🏆</div>
+        <h2>음식 월드컵</h2>
+        <p>최고의 메뉴를 64강 토너먼트로 고르고, 매칭된 상세 요리법까지 연동해 보세요.</p>
+        <span class="move-text">시작하기 →</span>
+      </div>
+      <div class="menu-card" onclick="openFridgeModal()">
+        <div class="card-icon">🧊</div>
+        <h2>냉장고를 부탁해</h2>
+        <p>재료 식자재 검색 후 요리 팁 체크, 부족한 재료는 장바구니에 담아 구매하세요.</p>
+        <span class="move-text">이동하기 →</span>
+      </div>
+    </section>
+  </div>
+
+  <div class="fridge-cart-container">
+    <div class="cart-title">🛒 부족한 재료 장바구니 & 구매 메모장</div>
+    <table class="cart-table">
+      <thead>
+        <tr>
+          <th style="width: 20%;">식재료명</th>
+          <th style="width: 45%;">수량 및 상세 구매 메모</th>
+          <th style="width: 20%;">쇼핑몰 바로가기</th>
+          <th style="width: 15%;">관리</th>
+        </tr>
+      </thead>
+      <tbody id="cartTableBody">
+        <tr>
+          <td colspan="4" class="empty-cart-msg">장바구니가 비어 있습니다. 레시피 확인 시 없는 재료를 체크해 담아보세요!</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="modal-overlay" id="rouletteModal">
+    <div class="modal-content">
+      <button class="close-modal-btn" onclick="closeModal('rouletteModal')">&times;</button>
+      <h2>메뉴 결정 돌림판 🎯</h2>
+      <div class="roulette-box">
+        <div class="roulette-arrow"></div>
+        <canvas id="rouletteCanvas" width="320" height="320"></canvas>
+      </div>
+      <button class="primary-btn" id="rollBtn" onclick="startRoulette()">돌리기!</button>
+      
+      <div class="flow-choice-box" id="rouletteFlowBox">
+        <p style="font-weight: bold; margin-bottom: 12px; color: #2d3436;" id="rouletteResultText"></p>
+        <button class="primary-btn" id="rouletteToRecipeBtn">📖 이 음식 레시피 보기</button>
+        <button class="secondary-btn" onclick="closeModal('rouletteModal')">❌ 종료 (메인으로)</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="worldcupModal">
+    <div class="modal-content worldcup-box">
+      <button class="close-modal-btn" onclick="closeModal('worldcupModal')">&times;</button>
+      <div id="wcPlayView">
+        <h2 style="margin-bottom: 10px;">음식 이상형 월드컵 🏆</h2>
+        <h3 id="wcRoundTitle" style="color: #ff4757; margin-bottom: 20px;">64강</h3>
+        <div class="match-container">
+          <div class="food-card-vs" onclick="selectWorldcup('left')">
+            <div class="food-title" id="wcLeftName"></div>
+            <div class="food-tags" id="wcLeftTags"></div>
+          </div>
+          <div class="vs-text">VS</div>
+          <div class="food-card-vs" onclick="selectWorldcup('right')">
+            <div class="food-title" id="wcRightName"></div>
+            <div class="food-tags" id="wcRightTags"></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="wc-winner-view" id="wcWinnerView">
+        <h3 style="font-size: 1.5rem;">✨ 오늘의 이상형 음식 우승! ✨</h3>
+        <div class="food-card-vs" style="max-width: 320px; margin: 20px auto; cursor: default;">
+          <div class="food-title" id="wcWinnerName"></div>
+          <div class="food-tags" id="wcWinnerTags"></div>
+        </div>
+        <div style="background: #f8f9fa; padding: 15px; border-radius: 15px; margin-top: 15px;">
+          <p style="font-weight: bold; margin-bottom: 10px;">우승한 음식으로 진행할 작업을 선택하세요</p>
+          <button class="primary-btn" id="wcToRecipeBtn">📖 이 메뉴 추천 레시피 보기</button>
+          <button class="secondary-btn" onclick="applyWinnerToMain()">종료 (메인메뉴로 확정)</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="fridgeModal">
+    <div class="modal-content">
+      <button class="close-modal-btn" onclick="closeModal('fridgeModal')">&times;</button>
+      <h2>냉장고를 부탁해 🧊</h2>
+      <p style="color:#666; font-size:0.9rem; margin-top:5px;">가지고 계신 주재료를 검색하면 맞춤형 요리법을 추천해 드립니다.</p>
+      
+      <div class="search-box">
+        <input type="text" id="ingredientInput" class="search-input" placeholder="예) 닭고기, 돼지고기, 소고기, 김치, 면..." onkeyup="if(window.event.keyCode==13){searchRecipes()}">
+        <button class="primary-btn" style="border-radius:50px; padding:0 25px;" onclick="searchRecipes()">검색</button>
+      </div>
+
+      <div class="recommend-tags">
+        <p>🔥 인기 추천 재료 태그</p>
+        <span class="keyword-tag" onclick="quickSearch('닭고기')">#닭고기</span>
+        <span class="keyword-tag" onclick="quickSearch('돼지고기')">#돼지고기</span>
+        <span class="keyword-tag" onclick="quickSearch('소고기')">#소고기</span>
+        <span class="keyword-tag" onclick="quickSearch('김치')">#김치</span>
+        <span class="keyword-tag" onclick="quickSearch('해산물')">#해산물</span>
+        <span class="keyword-tag" onclick="quickSearch('면')">#면</span>
+        <span class="keyword-tag" onclick="quickSearch('밥')">#밥</span>
+      </div>
+
+      <div class="recipe-list" id="recipeResultArea">
+        <div class="no-result">재료를 입력하거나 태그를 클릭해 보세요!</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 64가지 전체 리팩토링 데이터셋 (재료 및 고도화 레시피 가이드 포함)
+    const food64Dataset = [
+      { name: "치킨", ingredients: ["닭고기", "튀김가루", "식용유"], recipe: "1. 염지된 닭고기에 튀김가루 반죽을 입힙니다. 2. 180도 기름에 15분간 바삭하게 튀겨냅니다." },
+      { name: "삼겹살", ingredients: ["돼지고기", "허브솔트", "파채"], recipe: "1. 불판을 달군 후 삼겹살을 올립니다. 2. 허브솔트를 뿌려 앞뒤로 노릇하게 구워 파채와 곁들입니다." },
+      { name: "김치찌개", ingredients: ["김치", "돼지고기", "두부", "대파"], recipe: "1. 잘 익은 김치와 돼지고기를 참기름에 볶습니다. 2. 사골 육수를 붓고 두부와 파를 넣어 푹 끓입니다." },
+      { name: "짜장면", ingredients: ["면", "돼지고기", "춘장", "양파"], recipe: "1. 춘장에 돼지고기와 양파를 볶아 소스를 만듭니다. 2. 삶은 중화면에 소스를 부어 비벼 먹습니다." },
+      { name: "떡볶이", ingredients: ["떡", "고추장", "어묵", "설탕"], recipe: "1. 멸치 육수에 고추장과 설탕을 풉니다. 2. 떡과 어묵, 대파를 넣고 국물이 자작해질 때까지 졸입니다." },
+      { name: "소고기구이", ingredients: ["소고기", "버터", "소금"], recipe: "1. 달궈진 팬에 버터를 살짝 두릅니다. 2. 소고기 안심이나 등심을 원하는 굽기로 구워 소금에 찍어 먹습니다." },
+      { name: "라면", ingredients: ["면", "라면스프", "계란"], recipe: "1. 물 550ml를 끓인 후 건더기와 분말스프를 넣습니다. 2. 면을 넣고 4분간 강불에서 저어가며 끓입니다." },
+      { name: "피자", ingredients: ["밀가루", "치즈", "토마토소스", "페퍼로니"], recipe: "1. 도우에 토마토 소스를 바르고 치즈와 페퍼로니를 올립니다. 2. 200도 오븐에서 12분간 구워냅니다." },
+      { name: "족발", ingredients: ["돼지고기", "간장", "생강", "한약재"], recipe: "1. 돼지 앞다리를 간장, 생강, 각종 약재와 함께 푹 삶아냅니다. 2. 한김 식힌 후 먹기 좋은 크기로 얇게 썹니다." },
+      { name: "돈까스", ingredients: ["돼지고기", "빵가루", "밀가루", "계란물"], recipe: "1. 돼지등심을 두드려 편 후 밀가루, 계란물, 빵가루를 입힙니다. 2. 기름에 노릇하게 튀겨 돈까스 소스를 뿌립니다." },
+      { name: "보쌈", ingredients: ["돼지고기", "된장", "대파", "보쌈김치"], recipe: "1. 통삼겹살을 된장, 커피, 대파와 함께 40분간 삶습니다. 2. 얇게 썰어 보쌈김치, 무말랭이와 함께 세팅합니다." },
+      { name: "탕수육", ingredients: ["돼지고기", "전분가루", "식초", "설탕"], recipe: "1. 돼지고기에 전분 반죽을 입혀 바삭하게 두 번 튀깁니다. 2. 설탕, 식초, 간장을 달여 만든 새콤달콤한 소스를 곁들입니다." },
+      { name: "햄버거", ingredients: ["빵", "소고기패티", "양상추", "토마토"], recipe: "1. 소고기 패티를 구워 치즈를 녹입니다. 2. 번(빵) 사이에 패티, 양상추, 토마토, 소스를 차례로 쌓습니다." },
+      { name: "갈비탕", ingredients: ["소고기", "갈비", "무", "당면"], recipe: "1. 핏물을 뺀 소갈비를 무, 대파와 함께 1시간 이상 고읍니다. 2. 국간장으로 간을 하고 당면과 계란 지단을 고명으로 올립니다." },
+      { name: "양념갈비", ingredients: ["돼지고기", "간장양념", "배", "양파"], recipe: "1. 배, 양파를 갈아 만든 간장 양념에 갈비를 하루 재워둡니다. 2. 숯불이나 그릴에 타지 않게 뒤집어가며 구워줍니다." },
+      { name: "초밥", ingredients: ["밥", "생선회", "식초", "와사비"], recipe: "1. 밥에 단초물(식초, 설탕, 소금)을 섞어 뭉칩니다. 2. 와사비를 살짝 바르고 신선한 회를 올려 완성합니다." },
+      { name: "제육볶음", ingredients: ["돼지고기", "고추장", "고춧가루", "양파"], recipe: "1. 돼지 앞다리살을 고추장, 고춧가루, 간장 양념에 재웁니다. 2. 달군 팬에 양파, 대파와 함께 강불로 빠르게 볶아냅니다." },
+      { name: "육회", ingredients: ["소고기", "참기름", "배", "계란노른자"], recipe: "1. 신선한 소고기 우둔살을 얇게 채 썹니다. 2. 참기름, 소금, 다진 마늘로 버무린 후 채 썬 배와 계란 노른자를 곁들입니다." },
+      { name: "곱창구이", ingredients: ["곱창", "부추", "감자", "양파"], recipe: "1. 깨끗이 손질된 곱창을 초벌구이 합니다. 2. 감자, 양파, 부추와 함께 불판에 노릇하고 바삭하게 구워 소스에 찍어 먹습니다." },
+      { name: "닭발", ingredients: ["닭발", "매운양념", "고춧가루"], recipe: "1. 닭발을 삶아 불순물을 제거합니다. 2. 캡사이신과 고춧가루가 들어간 아주 매운 양념에 조려 불향을 입힙니다." },
+      { name: "순대국밥", ingredients: ["밥", "순대", "머리고기", "사골육수"], recipe: "1. 사골 육수에 순대와 머리고기를 넣고 끓입니다. 2. 뚝배기에 밥을 토렴하거나 따로 서빙하며 들깨가루를 곁들입니다." },
+      { name: "짬뽕", ingredients: ["면", "오징어", "새우", "고추기름"], recipe: "1. 고추기름에 돼지고기, 오징어, 채소를 넣고 달달 볶아 불맛을 냅니다. 2. 닭육수를 붓고 끓여 삶은 면에 부어 완성합니다." },
+      { name: "마라탕", ingredients: ["마라소스", "사골육수", "청경채", "포두부"], recipe: "1. 사골 육수에 마라 소스를 풀어 끓입니다. 2. 청경채, 숙주, 포두부, 차돌박이 등 취향껏 재료를 넣어 익힙니다." },
+      { name: "부대찌개", ingredients: ["햄", "소시지", "김치", "사골육수", "치즈"], recipe: "1. 냄비에 햄, 소시지, 김치, 베이크드 빈스를 두릅니다. 2. 사골 육수와 양념장을 넣고 라면사리와 치즈를 더해 끓입니다." },
+      { name: "냉면", ingredients: ["면", "동치미육수", "고추장양념"], recipe: "1. 메밀면을 삶아 찬물에 바락바락 씻어 쫄깃하게 만듭니다. 2. 살얼음이 동동 뜬 동치미 육수나 매콤한 고추장 양념장을 얹어 냅니다." },
+      { name: "닭갈비", ingredients: ["닭고기", "고추장", "양배추", "고구마", "떡"], recipe: "1. 닭다리살을 매콤한 양념에 재웁니다. 2. 철판에 양배추, 고구마, 떡과 함께 닭고기를 타지 않게 볶아 즐깁니다." },
+      { name: "광어회", ingredients: ["광어", "와사비", "간장", "초고추장"], recipe: "1. 신선한 광어를 깨끗이 손질하여 포를 뜹니다. 2. 얇고 균일하게 썰어 와사비 간장이나 초고추장에 찍어 먹습니다." },
+      { name: "샤브샤브", ingredients: ["소고기", "버섯", "청경채", "멸치육수"], recipe: "1. 멸치 다시마 육수를 끓여 식탁 위에 세팅합니다. 2. 얇게 썬 소고기와 각종 버섯, 야채를 살짝 데쳐 소스에 찍어 먹습니다." },
+      { name: "간장게장", ingredients: ["꽃게", "간장", "생강", "고추"], recipe: "1. 간장에 대파, 생강, 고추를 넣고 달여 달콤짭조름한 간장을 만듭니다. 2. 손질된 꽃게에 식힌 간장을 붓고 3일간 숙성합니다." },
+      { name: "감자탕", ingredients: ["돼지등뼈", "감자", "시래기", "들깨가루"], recipe: "1. 돼지 등뼈의 핏물을 빼고 1시간 이상 푹 삶습니다. 2. 된장을 풀고 시래기, 감자, 들깨가루를 듬뿍 넣어 한소끔 더 끓입니다." },
+      { name: "찜닭", ingredients: ["닭고기", "간장", "당면", "감자"], recipe: "1. 토막 낸 닭을 끓는 물에 데쳐냅니다. 2. 간장, 올리고당 소스에 닭과 감자, 당근을 조리다가 마지막에 불린 당면을 넣습니다." },
+      { name: "된장찌개", ingredients: ["된장", "두부", "애호박", "멸치육수"], recipe: "1. 쌀뜨물에 멸치와 다시마로 육수를 내고 된장을 풉니다. 2. 두부, 애호박, 감자, 팽이버섯을 넣고 보글보글 끓여 완성합니다." },
+      { name: "낙곱새", ingredients: ["낙지", "곱창", "새우", "매운양념"], recipe: "1. 낙지, 곱창(대창), 새우를 손질하여 양념장과 함께 냄비에 담습니다. 2. 자작한 육수를 붓고 당면과 함께 자작하게 졸여 밥에 비벼 먹습니다." },
+      { name: "불고기", ingredients: ["소고기", "간장", "설탕", "양파"], recipe: "1. 얇게 썬 소고기를 간장, 설탕, 다진 마늘 양념에 재워둡니다. 2. 양파, 버섯과 함께 자작하게 볶아 부드럽게 먹습니다." },
+      { name: "파스타", ingredients: ["면", "올리브유", "마늘", "토마토소스"], recipe: "1. 소금을 넣은 끓는 물에 파스타 면을 8분간 삶습니다. 2. 올리브유에 마늘을 볶다가 원하는 소스(토마토/크림)와 면을 볶아냅니다." },
+      { name: "쌀국수", ingredients: ["면", "소고기", "숙주", "향신료"], recipe: "1. 소고기 육수에 정향, 팔각 등 향신료를 넣어 이국적인 국물을 만듭니다. 2. 불린 쌀면을 데쳐 그릇에 담고 숙주, 소고기 고명과 육수를 붓습니다." },
+      { name: "타코야끼", ingredients: ["밀가루", "문어", "데리야끼소스", "가쓰오부시"], recipe: "1. 타코야끼 전용 틀에 밀가루 반죽을 붓고 문어 조각을 넣습니다. 2. 동글동글하게 돌려가며 구운 후 데리야끼 소스와 가쓰오부시를 뿌립니다." },
+      { name: "스테이크", ingredients: ["소고기", "버터", "소금", "후추"], recipe: "1. 두툼한 소고기에 소금, 후추, 올리브유로 밑간을 합니다. 2. 팬에 연기가 날 정도로 달군 후 앞뒤로 씨어링하며 버터 향을 입힙니다." },
+      { name: "김밥", ingredients: ["밥", "김", "햄", "단무지", "당근"], recipe: "1. 밥에 참기름과 소금으로 간을 합니다. 2. 김 위에 밥을 깔고 구운 햄, 계란, 단무지, 당근, 시금치를 올려 단단하게 맙니다." },
+      { name: "카레라이스", ingredients: ["밥", "카레가루", "감자", "당근", "돼지고기"], recipe: "1. 감자, 당근, 양파, 돼지고기를 깍둑썰기하여 팬에 볶습니다. 2. 물을 붓고 재료가 익으면 카레 가루를 풀어 걸쭉하게 끓여 밥에 얹습니다." },
+      { name: "순두부찌개", ingredients: ["순두부", "바지락", "다진돼지고기", "고추기름"], recipe: "1. 고추기름에 다진 돼지고기와 바지락을 볶아 베이스를 만듭니다. 2. 육수를 조금 붓고 순두부를 덩어리째 넣은 후 계란 하나를 톡 까넣습니다." },
+      { name: "닭볶음탕", ingredients: ["닭고기", "고추장", "고춧가루", "감자"], recipe: "1. 토막 낸 닭을 데쳐낸 후 고추장, 고춧가루, 간장 양념장을 만듭니다. 2. 닭과 큼직하게 썬 감자, 당근에 물을 붓고 양념과 함께 푹 조립니다." },
+      { name: "아구찜", ingredients: ["아귀", "콩나물", "미더덕", "고춧가루소스"], recipe: "1. 아귀를 먹기 좋게 잘라 데쳐냅니다. 2. 미더덕, 콩나물과 함께 전분물을 푼 매콤한 고춧가루 소스에 꾸덕하게 버무리듯 볶아냅니다." },
+      { name: "돼지국밥", ingredients: ["밥", "돼지고기", "사골육수", "부추무침"], recipe: "1. 돼지 사골을 밤새 뽀얗게 우려내어 육수를 만듭니다. 2. 삶은 돼지 수육을 얇게 썰어 부추무침, 새우젓과 함께 밥에 말아 냅니다." },
+      { name: "모둠튀김", ingredients: ["새우", "오징어", "고구마", "튀김가루"], recipe: "1. 새우, 오징어, 고구마, 김말이 등에 얇고 차가운 튀김옷을 입힙니다. 2. 깨끗한 기름에 튀겨내어 초간장에 찍어 먹습니다." },
+      { name: "오꼬노미야끼", ingredients: ["양배추", "오징어", "밀가루", "마요네즈"], recipe: "1. 채 썬 양배추와 오징어, 새우를 밀가루 반죽에 섞습니다. 2. 달군 팬에 두툼하게 부쳐내어 돈까스 소스, 마요네즈, 가쓰오부시를 올립니다." },
+      { name: "회덮밥", ingredients: ["밥", "생선회", "상추", "초고추장"], recipe: "1. 그릇에 밥을 깔고 상추, 양배추, 깻잎을 채 썰어 올립니다. 2. 깍둑썰기한 신선한 회를 얹고 새콤한 초고추장에 비벼 먹습니다." },
+      { name: "일식덮밥", ingredients: ["밥", "돼지고기", "돈까스소스", "양파"], recipe: "1. 간장, 맛술, 설탕을 졸여 돈부리 소스를 만듭니다. 2. 양파와 돈까스(또는 돼지고기)를 소스에 졸이다가 계란물을 두르고 밥 위에 얹습니다." },
+      { name: "칼국수", ingredients: ["면", "바지락", "멸치육수", "애호박"], recipe: "1. 바지락이나 멸치로 시원한 육수를 끓입니다. 2. 애호박, 감자를 채 썰어 넣고 칼국수 면을 넣어 걸쭉하게 끓여냅니다." },
+      { name: "샌드위치", ingredients: ["식빵", "슬라이스햄", "치즈", "양상추"], recipe: "1. 식빵을 살짝 굽고 마요네즈나 머스터드를 바릅니다. 2. 슬라이스 햄, 치즈, 토마토, 양상추를 겹겹이 쌓아 완성합니다." },
+      { name: "비빔밥", ingredients: ["밥", "나물", "계란후라이", "고추장"], recipe: "1. 고사리, 도라지, 애호박, 당근, 콩나물을 각각 볶아 나물을 만듭니다. 2. 밥 위에 나물과 계란후라이를 얹고 고추장, 참기름으로 비빕니다." },
+      { name: "설렁탕", ingredients: ["소고기", "사골육수", "소면", "대파"], recipe: "1. 소의 머리, 사골, 도가니를 고아 뽀얗고 불투명한 국물을 만듭니다. 2. 얇게 썬 편육과 소면을 토렴하고 파를 듬뿍 넣어 소금으로 간합니다." },
+      { name: "만두", ingredients: ["밀가루피", "다진돼지고기", "부추", "두부"], recipe: "1. 다진 돼지고기, 부추, 두부, 당면을 치대어 만두소를 만듭니다. 2. 만두피에 소를 채워 예쁘게 빚은 후 찜기에 10분간 찌거나 굽습니다." },
+      { name: "뼈해장국", ingredients: ["돼지등뼈", "우거지", "된장", "들깨가루"], recipe: "1. 돼지 등뼈를 푹 삶아 우거지와 함께 된장 베이스 국물에 조립니다. 2. 뚝배기에 담아 파와 들깨가루를 고명으로 올려 얼큰하게 냅니다." },
+      { name: "육개장", ingredients: ["소고기", "고사리", "대파", "고추기름"], recipe: "1. 결대로 찢은 소고기 양지머리와 고사리, 대파를 고추기름 양념에 버무립니다. 2. 소고기 육수에 재료를 다 넣고 빨갛고 얼큰하게 푹 끓여냅니다." },
+      { name: "탕후루", ingredients: ["과일", "설탕", "물"], recipe: "1. 딸기나 샤인머스캣을 꼬치에 끼우고 물기를 완벽히 제거합니다. 2. 설탕과 물을 2:1 비율로 끓여 만든 시럽을 과일에 얇게 코팅하여 굳힙니다." },
+      { name: "양꼬치", ingredients: ["양고기", "쯔란향신료"], recipe: "1. 양고기를 깍둑썰기하여 꼬치에 꽂고 쯔란 등 향신료를 뿌립니다. 2. 회전식 자동 구이 기계나 그릴에서 기름이 쏙 빠지게 구워냅니다." },
+      { name: "와플", ingredients: ["밀가루", "버터", "계란", "생크림"], recipe: "1. 밀가루, 베이킹파우더, 계란, 녹인 버터로 반죽을 만듭니다. 2. 달궈진 와플 팬에 반죽을 붓고 앞뒤로 구워 생크림과 시럽을 얹습니다." },
+      { name: "팥빙수", ingredients: ["얼음", "단팥", "우유", "연유"], recipe: "1. 우유를 얼려 부드럽게 갈아 눈꽃 얼음을 만듭니다. 2. 단팥을 듬뿍 얹고 찹쌀떡과 연유를 뿌려 시원하게 즐깁니다." },
+      { name: "우동", ingredients: ["면", "가쓰오부시", "쯔유", "튀김가루"], recipe: "1. 가쓰오부시와 쯔유로 달콤 짭조름한 맑은 우동 장국을 만듭니다. 2. 통통한 우동 면을 삶아 건진 후 뜨거운 장국을 붓고 튀김가루 고명을 올립니다." },
+      { name: "메밀소바", ingredients: ["면", "쯔유", "간무", "와사비"], recipe: "1. 살얼음이 진 시원한 쯔유 장국에 간 무와 와사비, 쪽파를 넣습니다. 2. 삶아서 찬물에 헹군 메밀면을 장국에 조금씩 적셔 가며 먹습니다." },
+      { name: "잔치국수", ingredients: ["면", "멸치육수", "애호박", "계란지단"], recipe: "1. 멸치와 다시마를 진하게 우려낸 맑은 육수에 국간장으로 간을 합니다. 2. 소면을 삶아 담고 애호박, 당근, 지단 고명과 육수를 넉넉히 부어줍니다." },
+      { name: "수제비", ingredients: ["밀가루", "멸치육수", "감자", "애호박"], recipe: "1. 밀가루 반죽을 치대어 비닐봉지에 넣고 냉장고에서 숙성시킵니다. 2. 멸치 육수가 끓으면 반죽을 얇게 떼어 넣고 감자, 애호박과 끓여냅니다." }
+    ];
+
+    // 글로벌 상태 변수
+    let shoppingCart = []; // 6번 장바구니 배열
+
+    // 모달 제어 함수
+    function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
+    /* ==========================================
+       [6번 기능] 장바구니 시스템 (CRUD & 쇼핑몰 연동)
+       ========================================== */
+    function addSelectedToCart(foodName) {
+      const container = document.getElementById(`check-grid-${foodName}`);
+      if (!container) return;
+      
+      const checkedBoxes = container.querySelectorAll('input[type="checkbox"]:checked');
+      if (checkedBoxes.length === 0) {
+        alert("장바구니에 추가할 '없는 재료' 체크박스를 선택해 주세요!");
+        return;
+      }
+
+      let addedCount = 0;
+      checkedBoxes.forEach(cb => {
+        const item = cb.value;
+        // 중복 방지
+        if (!shoppingCart.includes(item)) {
+          shoppingCart.push(item);
+          addedCount++;
+        }
+      });
+
+      alert(`${addedCount}개의 재료가 하단 장바구니 리스트에 수집되었습니다!`);
+      renderCart();
+      
+      // 체크박스 초기화
+      checkedBoxes.forEach(cb => cb.checked = false);
+    }
+
+    function renderCart() {
+      const tbody = document.getElementById("cartTableBody");
+      if (shoppingCart.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="4" class="empty-cart-msg">장바구니가 비어 있습니다. 레시피 확인 시 없는 재료를 체크해 담아보세요!</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = "";
+      shoppingCart.forEach((item, index) => {
+        // 쿠팡 검색 인코딩 링크 결합 생성
+        const encodeKeyword = encodeURIComponent(item);
+        const shopUrl = `https://www.coupang.com/np/search?component=&q=${encodeKeyword}`;
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td class="cart-item-name">❌ ${item}</td>
+          <td><input type="text" class="cart-memo-input" placeholder="예) 300g, 1봉지 사기 (메모 자동저장)" id="memo-${index}" oninput="saveMemo(${index})"></td>
+          <td><a href="${shopUrl}" target="_blank" class="shop-link">쿠팡 최저가 검색 🔗</a></td>
+          <td><button class="delete-cart-btn" onclick="deleteCartItem(${index})">삭제</button></td>
+        `;
+        tbody.appendChild(tr);
+        
+        // 세션/메모리 보존 복구용
+        const savedMemo = localStorage.getItem(`cart-memo-${item}`) || "";
+        document.getElementById(`memo-${index}`).value = savedMemo;
+      });
+    }
+
+    function saveMemo(index) {
+      const item = shoppingCart[index];
+      const val = document.getElementById(`memo-${index}`).value;
+      localStorage.setItem(`cart-memo-${item}`, val);
+    }
+
+    function deleteCartItem(index) {
+      const item = shoppingCart[index];
+      localStorage.removeItem(`cart-memo-${item}`);
+      shoppingCart.splice(index, 1);
+      renderCart();
+    }
+
+
+    /* ==========================================
+       [A] 돌림판 영역 및 7번 레시피 연동 흐름 제어
+       ========================================== */
+    const rouletteColors = ["#ff9ff3", "#feca57", "#ffffb3", "#1dd1a1", "#00d2d3", "#54a0ff", "#5f27cd", "#c8d6e5"];
+    let canvas, ctx, arc, currentAngle = 0;
+    let rouletteFoods = [];
+
+    document.addEventListener("DOMContentLoaded", () => {
+      canvas = document.getElementById("rouletteCanvas");
+      ctx = canvas.getContext("2d");
+      arc = (2 * Math.PI) / 8;
+      renderCart();
+    });
+
+    function drawRoulette() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const centerX = canvas.width / 2;
+      const centerY = canvas.height / 2;
+      const radius = centerX - 10;
+
+      for (let i = 0; i < 8; i++) {
+        const angle = currentAngle + (i * arc);
+        ctx.fillStyle = rouletteColors[i];
+        ctx.beginPath();
+        ctx.moveTo(centerX, centerY);
+        ctx.arc(centerX, centerY, radius, angle, angle + arc);
+        ctx.closePath();
+        ctx.fill();
+        ctx.strokeStyle = "#ffffff"; ctx.lineWidth = 2; ctx.stroke();
+
+        ctx.save();
+        ctx.fillStyle = "#333"; ctx.font = "bold 15px sans-serif"; ctx.textAlign = "right";
+        ctx.translate(centerX, centerY); ctx.rotate(angle + (arc / 2));
+        ctx.fillText(rouletteFoods[i].name, radius - 20, 6);
+        ctx.restore();
+      }
+    }
+
+    function openRouletteModal() {
+      rouletteFoods = [...food64Dataset].sort(() => Math.random() - 0.5).slice(0, 8);
+      document.getElementById("rollBtn").style.display = "inline-block";
+      document.getElementById("rouletteFlowBox").style.display = "none";
+      openModal('rouletteModal');
+      setTimeout(drawRoulette, 100);
+    }
+
+    function startRoulette() {
+      const rollBtn = document.getElementById("rollBtn");
+      rollBtn.disabled = true;
+      const totalRadian = (Math.random() * 2 * Math.PI) + (8 * Math.PI); 
+      let accruedRadian = 0; const duration = 2500; const startTime = performance.now();
+
+      function animate(currentTime) {
+        const elapsed = currentTime - startTime;
+        if (elapsed >= duration) {
+          currentAngle = (currentAngle + totalRadian) % (2 * Math.PI);
+          drawRoulette();
+          const correctedIndex = (Math.floor(8 - ((currentAngle + Math.PI/2) / arc)) + 8 + 1) % 8;
+          const finalFood = rouletteFoods[correctedIndex];
+          
+          // 메인 갱신 및 7번 분기 선택 박스 노출
+          document.getElementById("today-menu").textContent = finalFood.name + " 🎯";
+          rollBtn.style.display = "none";
+          rollBtn.disabled = false;
+          
+          const flowBox = document.getElementById("rouletteFlowBox");
+          document.getElementById("rouletteResultText").textContent = `🎉 당첨 메뉴: [ ${finalFood.name} ]`;
+          
+          // 레시피 이어하기 클릭 시 동작 바인딩
+          document.getElementById("rouletteToRecipeBtn").onclick = () => {
+            closeModal('rouletteModal');
+            openFridgeModal();
+            quickSearch(finalFood.name);
+          };
+          flowBox.style.display = "block";
+          return;
+        }
+        const easeOut = 1 - Math.pow(1 - (elapsed / duration), 3);
+        const stepAngle = easeOut * totalRadian;
+        currentAngle = (currentAngle + (stepAngle - accruedRadian)) % (2 * Math.PI);
+        accruedRadian = stepAngle;
+        drawRoulette();
+        requestAnimationFrame(animate);
+      }
+      requestAnimationFrame(animate);
+    }
+
+
+    /* ==========================================
+       [B] 음식 월드컵 영역 및 7번 레시피 연동 흐름 제어
+       ========================================== */
+    let wcTotalList = [], wcNextRoundList = [], wcCurrentMatch = 0, wcCurrentRound = 64;
+
+    function openWorldcupModal() {
+      openModal('worldcupModal');
+      wcTotalList = [...food64Dataset].sort(() => Math.random() - 0.5);
+      wcNextRoundList = []; wcCurrentMatch = 0; wcCurrentRound = 64;
+      document.getElementById("wcPlayView").style.display = "block";
+      document.getElementById("wcWinnerView").style.display = "none";
+      updateWorldcupMatch();
+    }
+
+    function updateWorldcupMatch() {
+      const currentMatchNum = wcCurrentMatch + 1;
+      const totalMatchesInRound = wcCurrentRound / 2;
+      document.getElementById("wcRoundTitle").textContent = `${wcCurrentRound}강 (${currentMatchNum}/${totalMatchesInRound})`;
+
+      const leftFood = wcTotalList[wcCurrentMatch * 2];
+      const rightFood = wcTotalList[wcCurrentMatch * 2 + 1];
+
+      document.getElementById("wcLeftName").textContent = leftFood.name;
+      const leftTagsArea = document.getElementById("wcLeftTags");
+      leftTagsArea.innerHTML = '';
+      leftFood.ingredients.forEach(tag => { leftTagsArea.innerHTML += `<span class="tag">#${tag}</span>`; });
+
+      document.getElementById("wcRightName").textContent = rightFood.name;
+      const rightTagsArea = document.getElementById("wcRightTags");
+      rightTagsArea.innerHTML = '';
+      rightFood.ingredients.forEach(tag => { rightTagsArea.innerHTML += `<span class="tag">#${tag}</span>`; });
+    }
+
+    function selectWorldcup(side) {
+      const winner = (side === 'left') ? wcTotalList[wcCurrentMatch * 2] : wcTotalList[wcCurrentMatch * 2 + 1];
+      wcNextRoundList.push(winner);
+      wcCurrentMatch++;
+
+      if (wcCurrentMatch >= wcCurrentRound / 2) {
+        if (wcNextRoundList.length === 1) {
+          showWorldcupWinner(wcNextRoundList[0]);
+        } else {
+          wcTotalList = [...wcNextRoundList].sort(() => Math.random() - 0.5);
+          wcNextRoundList = []; wcCurrentMatch = 0; wcCurrentRound /= 2;
+          updateWorldcupMatch();
+        }
+      } else {
+        updateWorldcupMatch();
+      }
+    }
+
+    function showWorldcupWinner(winner) {
+      document.getElementById("wcPlayView").style.display = "none";
+      const winnerView = document.getElementById("wcWinnerView");
+      winnerView.style.display = "block";
+      document.getElementById("wcWinnerName").textContent = winner.name;
+      
+      const winnerTagsArea = document.getElementById("wcWinnerTags");
+      winnerTagsArea.innerHTML = '';
+      winner.ingredients.forEach(tag => { winnerTagsArea.innerHTML += `<span class="tag">#${tag}</span>`; });
+
+      // 7번 요구사항: 월드컵 우승 메뉴 레시피 연동 이어하기 버튼 설정
+      document.getElementById("wcToRecipeBtn").onclick = () => {
+        closeModal('worldcupModal');
+        openFridgeModal();
+        quickSearch(winner.name);
+      };
+    }
+
+    function applyWinnerToMain() {
+      document.getElementById("today-menu").textContent = document.getElementById("wcWinnerName").textContent + " 🏆";
+      closeModal('worldcupModal');
+    }
+
+
+    /* ==========================================
+       [C] 냉장고를 부탁해 (5번 체크박스 생성 및 뷰 렌더링)
+       ========================================== */
+    function openFridgeModal() {
+      openModal('fridgeModal');
+      document.getElementById("ingredientInput").value = '';
+      document.getElementById("recipeResultArea").innerHTML = '<div class="no-result">재료를 입력하거나 태그를 클릭해 보세요!</div>';
+    }
+
+    function quickSearch(keyword) {
+      document.getElementById("ingredientInput").value = keyword;
+      searchRecipes();
+    }
+
+    function searchRecipes() {
+      const query = document.getElementById("ingredientInput").value.trim();
+      const resultArea = document.getElementById("recipeResultArea");
+
+      if (!query) {
+        resultArea.innerHTML = '<div class="no-result">검색어를 입력해 주세요!</div>';
+        return;
+      }
+
+      const filteredFoods = food64Dataset.filter(food => 
+        food.ingredients.some(ing => ing.includes(query)) || food.name.includes(query)
+      );
+
+      if (filteredFoods.length === 0) {
+        resultArea.innerHTML = `<div class="no-result">😢 '${query}'(이)가 포함된 추천 레시피를 찾지 못했습니다. 다른 재료를 입력해보세요!</div>`;
+        return;
+      }
+
+      resultArea.innerHTML = '';
+      filteredFoods.forEach(food => {
+        
+        // 5번 요구사항: 재료 확인용 체크박스 리스트 동적 빌드
+        let checkBoxesHtml = "";
+        food.ingredients.forEach(ing => {
+          checkBoxesHtml += `
+            <label class="check-label">
+              <input type="checkbox" value="${ing}">
+              <span>${ing}</span>
+            </label>
+          `;
+        });
+
+        const cardHtml = `
+          <div class="recipe-item">
+            <div class="recipe-header">
+              <span class="recipe-name">${food.name}</span>
+            </div>
+            
+            <div class="ingredient-check-section">
+              <div class="ingredient-check-title">
+                <span>🛒 내 냉장고에 [없는] 재료 체크박스 확인</span>
+                <button class="primary-btn" style="font-size:0.75rem; padding:4px 10px; border-radius:4px; margin:0;" onclick="addSelectedToCart('${food.name}')">장바구니 담기</button>
+              </div>
+              <div class="check-grid" id="check-grid-${food.name}">
+                ${checkBoxesHtml}
+              </div>
+            </div>
+
+            <div class="recipe-body">
+              <p style="font-size:0.85rem; font-weight:bold; color:#ff4757; margin-bottom:5px;">💡 조리법 가이드</p>
+              <div class="recipe-steps">${food.recipe}</div>
+            </div>
+          </div>
+        `;
+        resultArea.innerHTML += cardHtml;
+      });
+    }
+  </script>
+</body>
+</html>

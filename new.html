@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>오늘 뭐 먹지? - 레시피 & 장바구니 통합 플랫폼</title>
+  <style>
+    /* 1. 디자인 시스템 & 기본 레이아웃 */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); color: #333; min-height: 100vh; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+    
+    .container { width: 100%; max-width: 1000px; background: rgba(255, 255, 255, 0.95); padding: 40px; border-radius: 30px; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1); margin-bottom: 30px; }
+
+    /* 상단 헤더 영역 */
+    .hero { text-align: center; margin-bottom: 40px; }
+    .sub-title { font-size: 1rem; color: #666; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; font-weight: 600; }
+    .hero h1 { font-size: 3rem; color: #111; font-weight: 800; margin-bottom: 25px; }
+
+    /* 오늘의 메뉴 추천 카드 */
+    .today-card { background: #111; color: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); display: inline-block; min-width: 320px; text-align: center; margin-bottom: 20px; }
+    .today-label { font-size: 0.8rem; color: #aaa; letter-spacing: 1.5px; font-weight: bold; }
+    #today-menu { font-size: 2rem; font-weight: 700; margin: 15px 0; color: #fff; }
+    
+    /* 공통 버튼 디자인 */
+    button { cursor: pointer; transition: all 0.2s ease; font-weight: 600; }
+    .primary-btn { background: #111; color: white; border: none; padding: 12px 24px; border-radius: 12px; font-size: 0.95rem; }
+    .primary-btn:hover { background: #333; transform: translateY(-2px); }
+    .secondary-btn { background: #fff; color: #111; border: 2px solid #111; padding: 10px 22px; border-radius: 12px; font-size: 0.95rem; margin-left: 10px; }
+    .secondary-btn:hover { background: #f5f5f5; transform: translateY(-2px); }
+
+    /* 2단 메인 레이아웃 (플랫폼 본문) */
+    .main-layout { display: flex; gap: 30px; margin-top: 20px; width: 100%; align-items: flex-start; }
+    
+    /* 왼쪽: 레시피 서치 및 피드 스페이스 */
+    .recipe-space { flex: 1.8; display: flex; flex-direction: column; gap: 25px; }
+    
+    /* 오른쪽: 고정형 장바구니 바 */
+    .cart-space { flex: 1.2; background: #ffffff; border: 2px solid #111; padding: 30px; border-radius: 24px; position: sticky; top: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.03); }
+
+    /* 실시간 필터 검색 바 섹션 */
+    .filter-panel { background: #f8fafc; border: 1px solid #e2e8f0; padding: 25px; border-radius: 20px; }
+    .search-mode-tabs { display: flex; gap: 10px; margin-bottom: 15px; }
+    .tab-btn { background: #e2e8f0; color: #475569; border: none; padding: 8px 16px; border-radius: 8px; font-size: 0.85rem; }
+    .tab-btn.active { background: #111; color: white; }
+    
+    .search-field-box { display: flex; gap: 10px; margin-bottom: 15px; }
+    .search-field-box input { flex: 1; padding: 14px 20px; border: 1px solid #cbd5e1; border-radius: 12px; font-size: 1rem; outline: none; }
+    .search-field-box input:focus { border-color: #111; }
+    
+    .tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag-node { background: white; border: 1px solid #cbd5e1; color: #64748b; padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; }
+    .tag-node.active { background: #111; color: white; border-color: #111; }
+
+    /* 레시피 피드 목록 카드 양식 */
+    .recipe-feed-container { display: flex; flex-direction: column; gap: 20px; }
+    .recipe-item { background: white; border: 1px solid #e2e8f0; border-radius: 20px; padding: 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
+    .recipe-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+    .recipe-name { font-size: 1.35rem; font-weight: 700; color: #111; }
+    
+    /* 카드 내 재료 체크박스 테이블 구역 */
+    .ingredient-check-section { background: #f8fafc; padding: 18px; border-radius: 14px; margin-bottom: 15px; border: 1px dashed #cbd5e1; }
+    .ingredient-check-title { font-size: 0.9rem; font-weight: 700; color: #334155; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
+    .check-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; }
+    .check-label { display: flex; align-items: center; gap: 6px; font-size: 0.85rem; color: #475569; cursor: pointer; }
+    .check-label input { width: 16px; height: 16px; accent-color: #111; }
+
+    /* 조리법 단계 텍스트 뷰 */
+    .recipe-body p { font-size: 0.9rem; color: #475569; margin-bottom: 6px; line-height: 1.5; }
+
+    /* 우측 장바구니 리스트 보드 내부 양식 */
+    .cart-space h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; padding-bottom: 10px; border-bottom: 2px solid #111; }
+    .cart-list { list-style: none; display: flex; flex-direction: column; gap: 8px; max-height: 350px; overflow-y: auto; }
+    .cart-item { display: flex; justify-content: space-between; align-items: center; background: #f8fafc; padding: 10px 16px; border-radius: 10px; border: 1px solid #e2e8f0; font-size: 0.9rem; font-weight: 500; }
+    .cart-item button { background: none; border: none; color: #ef4444; font-size: 1.1rem; font-weight: bold; }
+    .cart-empty { color: #94a3b8; font-style: italic; text-align: center; padding: 40px 0; font-size: 0.85rem; line-height: 1.6; }
+
+    /* 모달 팝업 레이아웃 제거/미사용 상태 유지 */
+
+    /* 반응형 화면 압축 처리 */
+    @media (max-width: 850px) {
+      .main-layout { flex-direction: column; }
+      .cart-space { position: static; width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header class="hero">
+      <p class="sub-title">혼밥러를 위한 메뉴 추천 플랫폼</p>
+      <h1>오늘 뭐 먹지?</h1>
+
+      <div class="today-card">
+        <span class="today-label">TODAY MENU</span>
+        <h2 id="today-menu">메뉴 추천중...</h2>
+        <button class="primary-btn" onclick="recommendMenu()">다시 추천</button>
+        <button class="secondary-btn" onclick="location.href='worldcup.html'">음식 월드컵</button>
+      </div>
+    </header>
+
+    <div class="main-layout">
+      
+      <main class="recipe-space">
+        
+        <section class="filter-panel">
+          <div class="search-mode-tabs">
+            <button class="tab-btn active" id="tab-menu" onclick="changeSearchMode('menu')">메뉴명 검색</button>
+            <button class="tab-btn" id="tab-ingredient" onclick="changeSearchMode('ingredient')">재료 검색</button>
+          </div>
+          
+          <div class="search-field-box">
+            <input type="text" id="search-input" placeholder="메뉴명을 입력하세요 (예: 김치볶음밥)" oninput="runSearchFilter()">
+            <button class="primary-btn" onclick="runSearchFilter()">검색</button>
+          </div>
+
+          <div class="tag-cloud">
+            <button class="tag-node" onclick="toggleTagFilter(this, '간단')">#간단</button>
+            <button class="tag-node" onclick="toggleTagFilter(this, '가성비')">#가성비</button>
+            <button class="tag-node" onclick="toggleTagFilter(this, '한식')">#한식</button>
+            <button class="tag-node" onclick="toggleTagFilter(this, '고기')">#고기</button>
+            <button class="tag-node" onclick="toggleTagFilter(this, '국물')">#국물</button>
+            <button class="tag-node" onclick="toggleTagFilter(this, '매콤')">#매콤</button>
+          </div>
+        </section>
+
+        <section class="recipe-feed-container">
+          <div id="recipe-result-area">
+            </div>
+        </section>
+
+      </main>
+
+      <aside class="cart-space">
+        <h2>🛒 내가 살 장바구니 목록</h2>
+        <ul class="cart-list" id="cart-display-list">
+          <li class="cart-empty">장바구니가 비어 있습니다.<br>필요한 재료를 체크하고 추가해 보세요!</li>
+        </ul>
+      </aside>
+
+    </div>
+  </div>
+
+  <script src="js/foodDB.js
