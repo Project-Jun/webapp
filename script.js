@@ -458,19 +458,22 @@ function removeCartItem(index) {
 }
 
 // ==========================================================================
-// 6. 🎰 [컴포넌트 1] 메뉴 추천 전동 슬롯머신 로직
+// 6. 🎰 [컴포넌트 1] 메뉴 추천 전동 슬롯머신 로직 (글자 크기 완전 통일 버전)
 // ==========================================================================
 function openRouletteModal() {
   openModal("rouletteModal");
 
-  // 최초 팝업 등장 시 직전 실행 이력 컨텐츠 및 노출 카드 클리어링 초기화
   const reelEmoji = document.getElementById("reel-emoji");
   const reelText = document.getElementById("reel-text");
+  const reelTag = document.getElementById("reel-tag");
   const resultCard = document.getElementById("slot-result-card");
   const triggerBtn = document.getElementById("slot-start-btn");
 
-  if (reelEmoji) reelEmoji.textContent = "❓";
-  if (reelText) reelText.textContent = "두근두근";
+  // 이모지는 크게 유지하고, 메뉴명(가운데)과 태그(오른쪽)의 글자 크기를 1.1rem으로 100% 통일합니다.
+  if (reelEmoji) reelEmoji.innerHTML = `<div style="font-size: 2.2rem;">❓</div>`;
+  if (reelText) reelText.innerHTML = `<div style="font-size: 1.1rem; white-space: nowrap;">두근두근</div>`;
+  if (reelTag) reelTag.innerHTML = `<div style="font-size: 1.1rem; white-space: nowrap;">#추천</div>`;
+
   if (resultCard) resultCard.style.display = "none";
   if (triggerBtn) triggerBtn.disabled = false;
 }
@@ -478,6 +481,7 @@ function openRouletteModal() {
 function startSlotMachine() {
   const reelEmoji = document.getElementById("reel-emoji");
   const reelText = document.getElementById("reel-text");
+  const reelTag = document.getElementById("reel-tag");
   const resultCard = document.getElementById("slot-result-card");
   const triggerBtn = document.getElementById("slot-start-btn");
 
@@ -490,20 +494,20 @@ function startSlotMachine() {
   if (resultCard) resultCard.style.display = "none";
 
   let shuffleCount = 0;
-  const maxShuffles = 15; // 롤링 애니메이션 회전 수
+  const maxShuffles = 15;
 
-  // 인터벌 주기를 이용한 고속 셔플링 연출 시작
   const interval = setInterval(() => {
     const randomFood = foodDB[Math.floor(Math.random() * foodDB.length)];
     const cleanName = getCleanFoodName(randomFood.name);
     const emoji = getFoodEmoji(randomFood.name);
 
-    if (reelEmoji) reelEmoji.textContent = emoji;
-    if (reelText) reelText.textContent = cleanName;
+    // 롤링 애니메이션 중에도 가운데와 오른쪽 글자 크기를 1.1rem으로 실시간 일치시킵니다.
+    if (reelEmoji) reelEmoji.innerHTML = `<div style="font-size: 2.2rem;">${emoji}</div>`;
+    if (reelText) reelText.innerHTML = `<div style="font-size: 1.1rem; white-space: nowrap;">${cleanName}</div>`;
+    if (reelTag) reelTag.innerHTML = `<div style="font-size: 1.1rem; white-space: nowrap;">#${randomFood.category || "추천"}</div>`;
 
     shuffleCount++;
 
-    // 지정 셔플 횟수에 도달하면 타이머를 멈추고 최종 엄선 메뉴 확정 피드백 출력
     if (shuffleCount >= maxShuffles) {
       clearInterval(interval);
 
@@ -511,23 +515,24 @@ function startSlotMachine() {
       const finalCleanName = getCleanFoodName(finalFood.name);
       const finalEmoji = getFoodEmoji(finalFood.name);
 
-      if (reelEmoji) reelEmoji.textContent = finalEmoji;
-      if (reelText) reelText.textContent = finalCleanName;
+      // 최종 멈췄을 때도 두 구역의 글자 크기를 1.1rem으로 완벽하게 맞춰 고정합니다.
+      if (reelEmoji) reelEmoji.innerHTML = `<div style="font-size: 2.2rem;">${finalEmoji}</div>`;
+      if (reelText) reelText.innerHTML = `<div style="font-size: 1.1rem; white-space: nowrap;">${finalCleanName}</div>`;
+      if (reelTag) reelTag.innerHTML = `<div style="font-size: 1.1rem; white-space: nowrap;">#${finalFood.category || "추천"}</div>`;
 
-      // 최종 선정 하단 알림 피드백 카드 출력 바인딩
+      // 최종 결과 하단 카드 노출 처리
       if (resultCard) {
-        document.getElementById("slot-result-name").textContent = `${finalEmoji} ${finalCleanName}`;
+        const resNameEl = document.getElementById("slot-result-name") || document.getElementById("slot-result-title");
+        if (resNameEl) resNameEl.textContent = `${finalEmoji} ${finalCleanName}`;
         resultCard.style.display = "block";
 
-        // 상세 확인하러 가기 전용 익명 임시 이벤트 주입 바인딩
-        const goRecipeBtn = document.getElementById("slot-go-recipe-btn");
+        const goRecipeBtn = document.getElementById("slot-go-recipe-btn") || document.getElementById("slot-recipe-btn");
         if (goRecipeBtn) {
           goRecipeBtn.onclick = () => {
             closeModal("rouletteModal");
             switchView("fridge-view");
             const searchInput = document.getElementById("search-input");
             if (searchInput) {
-              // 모드도 일치시킨 뒤 강제 타이핑 동기화
               const menuModeBtn = document.querySelector('[data-mode="menu"]');
               if (menuModeBtn) menuModeBtn.click();
               searchInput.value = finalCleanName;
