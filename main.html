@@ -1,87 +1,173 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>오늘 뭐 먹지?</title>
-
-  <link rel="stylesheet" href="css/style.css">
+  <title>오늘 뭐 먹지? - 레시피 & 장바구니 통합 플랫폼</title>
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-
   <div class="container">
-
-    <!-- 상단 -->
     <header class="hero">
-
-      <p class="sub-title">혼밥러를 위한 메뉴 추천 플랫폼</p>
-
-      <h1>오늘 뭐 먹지?</h1>
-
+      <p class="sub-title">혼밥러를 위한 메뉴 추천 & 스마트 레시피 플랫폼</p>
+      <h1>오늘 뭐 먹지? 😋</h1>
       <div class="today-card">
-
         <span class="today-label">TODAY MENU</span>
-
-        <h2 id="today-menu">
-          메뉴 추천중...
-        </h2>
-
-        <button onclick="recommendMenu()">
-          다시 추천
-        </button>
-
+        <h2 id="today-menu">원하는 음식을 뽑아보세요! 🎰</h2>
+        <button class="primary-btn" onclick="openRouletteModal()">메뉴 추천 받기 (슬롯머신)</button>
       </div>
-
     </header>
 
-    <!-- 메뉴 카드 -->
-    <section class="menu-grid">
+    <nav class="main-nav">
+      <button class="nav-tab active" data-view="home-view" onclick="switchView('home-view')">🏠 홈 메뉴</button>
+      <button class="nav-tab" data-view="fridge-view" onclick="switchView('fridge-view')">🧊 냉장고를 부탁해</button>
+    </nav>
 
-      <!-- 음식 월드컵 -->
-      <div class="menu-card" onclick="goWorldcup()">
+    <main id="home-view" class="view-section active">
+      <section class="menu-grid">
+        <div class="menu-card" onclick="openWorldcupModal()">
+          <div class="card-icon">🏆</div>
+          <h2>음식 월드컵</h2>
+          <p>최고의 메뉴를 64강 토너먼트로 고르고, 매칭된 상세 요리법까지 연동해 보세요.</p>
+          <span class="move-text">시작하기 →</span>
+        </div>
+        <div class="menu-card" onclick="switchView('fridge-view')">
+          <div class="card-icon">🧊</div>
+          <h2>냉장고를 부탁해</h2>
+          <p>내 냉장고 속 재료를 체크하여 당장 요리할 수 있는 맞춤형 레시피를 찾습니다.</p>
+          <span class="move-text">재료 검색하기 →</span>
+        </div>
+      </section>
 
-        <div class="card-icon">
-          🏆
+      <section class="cart-section">
+        <div class="cart-header">
+          <h3>🛒 부족한 재료 장바구니</h3>
+          <span class="cart-count" id="cart-count-badge">0개 품목</span>
+        </div>
+        <table class="cart-table">
+          <thead>
+            <tr>
+              <th style="width: 40%;">재료명 (출처 요리)</th>
+              <th style="width: 45%;">쿠팡 원클릭 구매 및 메모</th>
+              <th style="width: 15%; text-align: center;">관리</th>
+            </tr>
+          </thead>
+          <tbody id="cart-body">
+          </tbody>
+        </table>
+      </section>
+    </main>
+
+    <main id="fridge-view" class="view-section">
+      <section class="fridge-search-area">
+        <h2>냉장고 속 재료로 검색 🧊</h2>
+        <p class="section-desc">가지고 계신 주재료를 입력하거나 아래 인기 태그를 선택하세요.</p>
+
+        <div class="search-mode-toggle">
+          <button class="mode-btn active" data-mode="menu">메뉴명 검색</button>
+          <button class="mode-btn" data-mode="ingredient">재료명 검색</button>
         </div>
 
-        <h2>음식 월드컵</h2>
-
-        <p>
-          오늘 땡기는 최고의 음식 메뉴를 직접 선택해보세요
-        </p>
-
-        <span class="move-text">
-          시작하기 →
-        </span>
-
-      </div>
-
-      <!-- 냉장고를 부탁해 -->
-      <div class="menu-card" onclick="goFridge()">
-
-        <div class="card-icon">
-          🧊
+        <div class="search-box">
+          <input type="text" id="search-input" class="search-input" placeholder="메뉴명을 입력하세요 (예: 김치볶음밥)">
+          <button class="primary-btn" id="search-btn" onclick="renderFoods()">검색</button>
         </div>
 
-        <h2>냉장고를 부탁해</h2>
+        <div class="recommend-tags">
 
-        <p>
-          냉장고 속 재료로 가능한 요리를 추천해드립니다
-        </p>
+          <div class="tag-group">
 
-        <span class="move-text">
-          이동하기 →
-        </span>
+            <p>🔥 인기 필터 태그</p>
 
-      </div>
+            <div id="popular-tags"></div>
 
-    </section>
+          </div>
 
+          <div class="tag-group">
+
+            <p>🏷️ 전체 태그</p>
+
+            <div id="normal-tags"></div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <section id="food-list" class="recipe-grid-container">
+      </section>
+    </main>
   </div>
 
-  <script src="js/foodDB.js"></script>
-  <script src="js/main.js"></script>
+  <div class="modal-overlay" id="rouletteModal">
+    <div class="modal-content slot-machine-content">
+      <button class="close-modal-btn" onclick="closeModal('rouletteModal')">&times;</button>
+      <h2>🎰 오늘의 메뉴 슬롯머신 🎰</h2>
+      <p style="color:#666; font-size:0.9rem; margin-bottom: 20px;">[START] 버튼을 누르면 맛있는 메뉴 릴이 회전합니다!</p>
 
+      <div class="slot-machine-container">
+        <div class="slot-window">
+          <div class="slot-reel" id="reel-emoji">
+            <div>❓</div>
+          </div>
+        </div>
+        <div class="slot-window">
+          <div class="slot-reel" id="reel-text">
+            <div>메뉴명</div>
+          </div>
+        </div>
+        <div class="slot-window">
+          <div class="slot-reel" id="reel-tag">
+            <div>카테고리</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot-actions">
+        <button class="slot-trigger-btn" id="slot-start-btn" onclick="startSlotMachine()">🎰 START !!</button>
+      </div>
+
+      <div id="slot-result-card" class="slot-result-card" style="display: none;">
+        <h3>🎉 오늘 추천드리는 최고의 메뉴!</h3>
+        <h2 id="slot-result-name">음식명</h2>
+        <button class="primary-btn" id="slot-recipe-btn" style="margin-top:10px;">상세 레시피 및 재료 확인하기</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="worldcupModal">
+    <div class="modal-content worldcup-content">
+      <button class="close-modal-btn" onclick="closeModal('worldcupModal')">&times;</button>
+      <h2>🏆 최고의 음식 이상형 월드컵 🏆</h2>
+      <div class="worldcup-meta">
+        <span class="round-badge" id="worldcup-round-title">64강 - 1/32</span>
+      </div>
+
+      <div class="worldcup-match-container">
+        <div class="match-card left-match" onclick="selectWorldcupWinner(0)">
+          <div class="match-emoji" id="wc-left-emoji">🍔</div>
+          <h3 id="wc-left-name">좌측 음식</h3>
+        </div>
+        <div class="vs-circle">VS</div>
+        <div class="match-card right-match" onclick="selectWorldcupWinner(1)">
+          <div class="match-emoji" id="wc-right-emoji">🍕</div>
+          <h3 id="wc-right-name">우측 음식</h3>
+        </div>
+      </div>
+
+      <div id="worldcup-winner-area" class="winner-display-panel" style="display: none;">
+        <h2>👑 최종 우승 음식 👑</h2>
+        <h1 id="worldcup-winner-name" style="color:#ff4757; margin:15px 0;">치킨</h1>
+        <p style="color:#555; margin-bottom:20px;">이 음식의 레시피 정보를 아래 냉장고 리스트에서 바로 확인해보세요!</p>
+        <button class="primary-btn" onclick="closeModal('worldcupModal')">월드컵 종료하기</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="foodDB.js"></script>
+  <script src="script.js"></script>
 </body>
+
 </html>
