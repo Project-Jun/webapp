@@ -1,0 +1,875 @@
+/* ==========================================================================
+   1. 디자인 시스템 & 초기화 (바깥 배경 일러스트 효과 및 레이아웃)
+   ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&family=Segoe+UI:wght@400;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Pretendard', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  
+  /* 🎨 배경: 은은한 붉은빛과 푸른빛이 도는 파스텔 그라데이션 */
+  background: radial-gradient(circle at 0% 0%, rgba(255, 182, 185, 0.4) 0%, transparent 40%),
+              radial-gradient(circle at 100% 0%, rgba(186, 215, 242, 0.4) 0%, transparent 40%),
+              #fafafa;
+  background-attachment: fixed;
+  color: #333;
+  min-height: 100vh;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* 🍕 [수정] 배경에 아주 희미하고 작게 들어가는 음식 아이콘 스타일 */
+.bg-floating {
+  position: fixed;
+  font-size: 2.2rem;         /* 크기를 작게 줄여 부담 없는 미니멀 룩 완성 */
+  opacity: 0.28;             /* 시선 강탈하지 않도록 희미하고 맑게 투명도 조절 */
+  z-index: 0;
+  pointer-events: none;      /* 클릭이나 드래그 방해 금지 */
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.03));
+  animation: floatEffect 6s ease-in-out infinite;
+}
+
+/* [수정] 요청하신 스크린샷과 똑같은 레이아웃 배치 (좌측 2개, 우측 2개 균형) */
+/* 왼쪽 배경 영역 */
+.item-stew   { top: 18%; left: calc(50% - 650px); animation-delay: 0s; }
+.item-roll   { bottom: 20%; left: calc(50% - 630px); animation-delay: 1.5s; }
+
+/* 오른쪽 배경 영역 */
+.item-pizza  { top: 10%; right: calc(50% - 640px); animation-delay: 0.7s; }
+.item-skewer { bottom: 15%; right: calc(50% - 650px); animation-delay: 2.2s; }
+
+/* 부드럽고 잔잔한 둥둥 효과 고도화 */
+@keyframes floatEffect {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(2deg); }
+}
+
+/* 메인 흰색 컨테이너 (유리 질감) */
+.container {
+  width: 100%;
+  max-width: 1100px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 50px 40px;
+  border-radius: 40px;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.04);
+  margin-bottom: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  position: relative;
+  z-index: 1; /* 컨테이너가 항상 음식 아이콘 위에 위치 */
+}
+
+/* 상단 헤더 */
+.hero {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.sub-title {
+  font-size: 0.95rem;
+  color: #8e9ca6;
+  font-weight: 600;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.hero h1 {
+  font-size: 2.8rem;
+  color: #1e272e;
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin-bottom: 10px;
+}
+
+.hero-desc {
+  font-size: 1rem;
+  color: #7f8c8d;
+  font-weight: 500;
+}
+
+/* 🧡 TODAY MENU 메인 추천 카드 카드 */
+.today-card {
+  background: linear-gradient(135deg, #ff7675 0%, #ff6b6b 50%, #ff4757 100%);
+  border-radius: 30px;
+  padding: 50px 40px;
+  margin-top: 25px;
+  box-shadow: 0 20px 40px rgba(255, 71, 87, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.today-card .card-deco-circle {
+  position: absolute;
+  width: 240px;
+  height: 240px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 50%;
+  top: -70px;
+  right: -70px;
+  pointer-events: none;
+}
+
+.today-info {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  z-index: 1;
+}
+
+.today-label {
+  font-size: 0.75rem;
+  background: rgba(255, 255, 255, 0.9);
+  color: #ff4757;
+  padding: 5px 16px;
+  border-radius: 20px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.today-card h2 {
+  margin: 10px 0 5px 0;
+  font-size: 2.6rem;
+  color: #fff;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.menu-emoji {
+  font-size: 2.4rem;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.today-desc {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.95);
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+
+/* 공통 버튼 디자인 */
+button {
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.primary-btn {
+  background: #ffffff;
+  color: #ff4757;
+  padding: 12px 26px;
+  border-radius: 50px;
+  font-size: 0.95rem;
+  font-weight: bold;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.primary-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+}
+
+/* 상단 탭 네비게이션 */
+.main-nav {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 30px 0;
+}
+
+.nav-tab {
+  padding: 14px 32px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 50px;
+  background-color: #f5f6fa;
+  color: #7f8c8d;
+}
+
+.nav-tab:hover {
+  background-color: #eef0f3;
+  color: #2c3e50;
+}
+
+.nav-tab.active {
+  background: linear-gradient(135deg, #ff7675, #ff4757);
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(255, 71, 87, 0.3);
+}
+
+.view-section {  display: none; }
+.view-section.active {  display: block; }
+
+/* ==========================================================================
+   2. 홈 화면 그리드 및 카드 디자인
+   ========================================================================== */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.menu-card {
+  background: #fff;
+  border-radius: 32px;
+  padding: 35px;
+  border: 1px solid rgba(0,0,0,0.01);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.015);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  cursor: pointer;
+}
+
+.menu-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.07);
+}
+
+.card-badge {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+.card-badge.popular { background: #fff2f2; color: #ff4757; }
+.card-badge.recommend { background: #eef7ff; color: #3867d6; }
+
+.card-icon-wrapper {
+  width: 65px;
+  height: 65px;
+  border-radius: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+}
+.menu-card:nth-child(1) .card-icon-wrapper { background: #fff5e6; }
+.menu-card:nth-child(2) .card-icon-wrapper { background: #e8f4fd; }
+
+.card-icon { font-size: 2rem; }
+
+.menu-card h2 {
+  font-size: 1.5rem;
+  color: #1e272e;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.menu-card p {
+  font-size: 0.95rem;
+  color: #7f8c8d;
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+.card-thumbnails {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 25px;
+}
+.card-thumbnails img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+  object-fit: cover;
+}
+
+.move-btn-link {
+  width: 100%;
+  text-align: center;
+  padding: 12px 0;
+  border-radius: 50px;
+  font-weight: bold;
+  font-size: 0.95rem;
+}
+.menu-card:nth-child(1) .move-btn-link { background: #fff0f0; color: #ff4757; }
+.menu-card:nth-child(2) .move-btn-link { background: #edf5ff; color: #3867d6; }
+
+.menu-card:nth-child(1) .move-btn-link:hover { background: #ff4757; color: #fff; }
+.menu-card:nth-child(2) .move-btn-link:hover { background: #3867d6; color: #fff; }
+
+/* ==========================================================================
+   3. 오늘의 인기 메뉴 슬라이더 & 오늘의 꿀팁 컴포넌트
+   ========================================================================== */
+.popular-section {
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 35px;
+}
+
+.section-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #1e272e;
+  margin-bottom: 20px;
+}
+
+.popular-container {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  overflow-x: auto;
+  padding-bottom: 10px;
+}
+.popular-container::-webkit-scrollbar { display: none; }
+
+.popular-card {
+  min-width: 195px;
+  flex: 1;
+  background: #fff;
+  border-radius: 24px;
+  padding: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.015);
+  border: 1px solid rgba(0,0,0,0.01);
+}
+
+.popular-img-box {
+  width: 100%;
+  height: 120px;
+  border-radius: 18px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+.popular-img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.popular-rank-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.rank-badge {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #ff7675;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popular-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+.popular-likes {
+  font-size: 0.8rem;
+  color: #ff7675;
+  font-weight: 600;
+  padding-left: 30px;
+}
+
+.tip-banner {
+  width: 100%;
+  background: #fffdf0;
+  border: 1px solid #fbf0b7;
+  padding: 18px 25px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+}
+
+.tip-label {
+  background: #f1c40f;
+  color: #fff;
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.tip-text {
+  font-size: 0.9rem;
+  color: #6e7a8a;
+  font-weight: 500;
+  flex: 1;
+}
+
+.tip-arrow {
+  color: #ccc;
+  font-weight: bold;
+}
+
+/* ==========================================================================
+   4. 냉장고 서치 엔진 및 레시피 결과 디자인
+   ========================================================================== */
+.fridge-search-area {
+  background: #f8f9fa;
+  padding: 30px;
+  border-radius: 24px;
+  margin-bottom: 30px;
+}
+
+.section-desc {
+  color: #777;
+  font-size: 0.9rem;
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+
+.search-mode-toggle {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.mode-btn {
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  border-radius: 8px;
+  background: #e9ecef;
+  color: #495057;
+  font-weight: 500;
+}
+
+.mode-btn.active {
+  background: #2f3542;
+  color: white;
+}
+
+.search-box {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 15px 20px;
+  border: 2px solid #e1e4e8;
+  border-radius: 12px;
+  font-size: 1rem;
+  outline: none;
+}
+
+.search-input:focus { border-color: #ff4757; }
+
+.recommend-tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.recommend-tags p {
+  font-size: 0.85rem;
+  color: #555;
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.tag-btn {
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  color: #444;
+}
+
+.tag-btn.active {
+  background: #ff4757;
+  color: white;
+  border-color: #ff4757;
+}
+
+.recipe-grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+}
+
+.recipe-item {
+  background: #fff;
+  border-radius: 20px;
+  border: 1px solid #eee;
+  padding: 25px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+}
+
+.recipe-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #f1f1f1;
+  padding-bottom: 12px;
+  margin-bottom: 15px;
+}
+
+.recipe-name {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #111;
+}
+
+.ingredient-check-section {
+  background: #fdfdfe;
+  border: 1px solid #f0f0f0;
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.ingredient-check-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.check-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.check-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: #666;
+  cursor: pointer;
+}
+
+.check-label input { accent-color: #ff4757; }
+
+.recipe-guide-section {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.guide-title {
+  font-weight: bold;
+  color: #ff4757;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.recipe-guide-section ol {
+  padding-left: 18px;
+  line-height: 1.6;
+}
+
+.no-result {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 5px 0;
+  color: #999;
+  font-size: 1.1rem;
+}
+
+/* ==========================================================================
+   5. 모달 및 장바구니 영역 디자인
+   ========================================================================== */
+.modal-overlay {
+  position: fixed;
+  top:0; left:0; width:100%; height:100%;
+  background: rgba(0,0,0,0.4);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(8px);
+}
+
+.modal-content {
+  background: #fff;
+  width: 90%;
+  max-width: 650px;
+  border-radius: 32px;
+  padding: 40px;
+  position: relative;
+  box-shadow: 0 30px 70px rgba(0,0,0,0.15);
+}
+
+.close-modal-btn {
+  position: absolute;
+  top: 20px; right: 25px;
+  font-size: 2rem;
+  background: transparent;
+  color: #aaa;
+}
+
+.close-modal-btn:hover { color: #333; }
+
+.slot-machine-container {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  background: #2c3e50;
+  padding: 25px;
+  border-radius: 20px;
+  border: 4px solid #f1c40f;
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.6);
+  margin-bottom: 25px;
+}
+
+.slot-window {
+  width: 30%;
+  height: 90px;
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  border: 2px solid #34495e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slot-reel {
+  position: absolute;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.slot-reel div {
+  height: 90px;
+  line-height: 90px;
+  font-size: 1.35rem;
+  font-weight: bold;
+  color: #222;
+  text-align: center;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#reel-emoji div { font-size: 2.5rem; }
+.slot-actions { display: flex; justify-content: center; margin-bottom: 20px; }
+
+.slot-trigger-btn {
+  background: linear-gradient(145deg, #f1c40f, #f39c12);
+  color: #2c3e50;
+  padding: 15px 40px;
+  font-size: 1.3rem;
+  font-weight: 900;
+  border-radius: 50px;
+  box-shadow: 0 5px 15px rgba(241, 196, 15, 0.4);
+  border: 2px solid #fff;
+}
+
+.slot-trigger-btn:hover { transform: scale(1.05); box-shadow: 0 8px 20px rgba(241, 196, 15, 0.6); }
+.slot-trigger-btn:disabled { background: #bdc3c7; color: #7f8c8d; cursor: not-allowed; transform: none; box-shadow: none; }
+
+.slot-result-card {
+  background: #fff3f3;
+  border: 2px dashed #ff4757;
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  animation: bounceIn 0.5s ease-out;
+}
+
+.worldcup-meta { text-align: center; margin-bottom: 15px; }
+.round-badge { background: #2f3542; color: white; padding: 4px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: bold; }
+.worldcup-match-container { display: flex; align-items: center; justify-content: center; gap: 15px; margin: 20px 0; }
+
+.match-card {
+  flex: 1;
+  background: #f8f9fa;
+  border: 2px solid #e1e4e8;
+  border-radius: 20px;
+  padding: 30px 15px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.match-card:hover { border-color: #ff4757; background: #fff5f5; transform: scale(1.03); }
+.match-emoji { font-size: 3.5rem; margin-bottom: 15px; }
+
+.vs-circle {
+  background: #ff4757;
+  color: #fff;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.85rem;
+  box-shadow: 0 4px 10px rgba(255, 71, 87, 0.3);
+}
+
+.winner-display-panel { text-align: center; padding: 30px 10px; }
+
+.cart-section {
+  background: #fff;
+  border-radius: 24px;
+  padding: 30px;
+  border: 1px solid #eee;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+}
+
+.cart-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #ff4757; padding-bottom: 10px; }
+.cart-count { background: #ff4757; color: white; padding: 3px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; }
+.cart-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+
+.cart-table th {
+  background: #f8f9fa;
+  padding: 12px;
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: bold;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+
+.cart-table td { padding: 12px; border-bottom: 1px solid #f1f1f1; font-size: 0.95rem; vertical-align: middle; }
+.cart-item-wrapper { display: flex; flex-direction: column; gap: 3px; }
+.cart-item-name { font-weight: bold; color: #333; }
+.cart-item-source { font-size: 0.75rem; color: #999; }
+.cart-control-box { display: flex; align-items: center; gap: 10px; width: 100%; }
+
+.cart-memo-input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  outline: none;
+  font-size: 0.85rem;
+}
+
+.cart-memo-input:focus { border-color: #ff4757; }
+
+.coupang-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: linear-gradient(145deg, #1e90ff, #0066cc);
+  color: #ffffff !important;
+  text-decoration: none !important;
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,102,204,0.3);
+  white-space: nowrap;
+}
+
+.coupang-btn:hover { background: linear-gradient(145deg, #0066cc, #0044aa); transform: translateY(-1px); }
+.delete-cart-btn { background: #fff0f0; color: #ff4757; border: 1px solid #ffa3a3; padding: 6px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 500; }
+.delete-cart-btn:hover { background: #ff4757; color: #fff; }
+.empty-cart-msg { text-align: center; color: #aaa; padding: 30px 0; font-size: 0.95rem; }
+
+@keyframes bounceIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* ==========================================================================
+   6. 반응형 디자인 (모바일 및 태블릿 대응)
+   ========================================================================== */
+@media (max-width: 1440px) {
+  /* 화면이 컨테이너 크기와 좁혀지면 아이콘이 텍스트와 겹치지 않도록 깔끔하게 히든 처리 */
+  .bg-floating { display: none; }
+}
+
+@media (max-width: 768px) {
+  body { padding: 15px; }
+  .container { padding: 30px 20px; border-radius: 28px; }
+  .today-card { flex-direction: column; text-align: center; gap: 20px; padding: 30px 20px; }
+  .today-info { align-items: center; text-align: center; }
+  .menu-grid, .recipe-grid-container { grid-template-columns: 1fr; gap: 20px; }
+  .worldcup-match-container { flex-direction: column; }
+  .vs-circle { margin: 5px 0; }
+  .cart-control-box { flex-direction: column; align-items: flex-start; gap: 5px; }
+  .coupang-btn { width: 100%; justify-content: center; }
+}
+
+/* ==========================================================================
+   10. 태그 그룹 및 유튜브 레시피 버튼 스타일
+   ========================================================================== */
+.tag-group {
+
+  margin-top: 20px;
+}
+
+#popular-tags,
+#normal-tags {
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 10px;
+
+  margin-top: 10px;
+}
+
+.youtube-btn {
+
+  background: #ff0000;
+
+  color: white;
+
+  padding: 10px 16px;
+
+  border-radius: 8px;
+
+  text-decoration: none;
+
+  display: inline-block;
+
+  font-size: 0.85rem;
+}
+.youtube-btn:hover {
+
+  background: #e60000;
+
+  transform: translateY(-2px);
+
+  box-shadow: 0 4px 12px rgba(230,0,0,0.3);
+}

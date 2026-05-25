@@ -1,86 +1,224 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>오늘 뭐 먹지?</title>
-
-  <link rel="stylesheet" href="css/style.css">
+  <title>오늘 뭐 먹지? - 레시피 & 장바구니 통합 플랫폼</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="bg-floating item-stew">🍲</div>
+  <div class="bg-floating item-roll">🍣</div>
+  <div class="bg-floating item-pizza">🍕</div>
+  <div class="bg-floating item-skewer">🍢</div>
 
   <div class="container">
-
-    <!-- 상단 -->
     <header class="hero">
-
-      <p class="sub-title">혼밥러를 위한 메뉴 추천 플랫폼</p>
-
-      <h1>오늘 뭐 먹지?</h1>
-
+      <p class="sub-title">혼밥러를 위한 메뉴 추천 & 스마트 레시피 플랫폼</p>
+      <h1>오늘 뭐 먹지? 😋</h1>
+      <p class="hero-desc">매일 고민되는 오늘의 메뉴, 우리 함께 골라봐요!</p>
+      
       <div class="today-card">
-
-        <span class="today-label">TODAY MENU</span>
-
-        <h2 id="today-menu">
-          김치찌개 🍲
-        </h2>
-
-        <button onclick="recommendMenu()">
-          다시 추천
-        </button>
-
+        <div class="card-deco-circle"></div>
+        
+        <div class="today-info">
+          <span class="today-label">TODAY MENU</span>
+          <h2 id="today-menu">차돌짬뽕 <span class="menu-emoji">🍜</span></h2>
+          <p id="today-menu-desc" class="today-desc">얼큰하고 깊은 국물에 차돌박이가 듬뿍!</p>
+          <button class="primary-btn" onclick="openRouletteModal()">🎰 다른 메뉴 추천 받기 (슬롯머신)</button>
+        </div>
       </div>
-
     </header>
+    
+    <nav class="main-nav">
+      <button class="nav-tab active" data-view="home-view" onclick="switchView('home-view')">🏠 홈 메뉴</button>
+      <button class="nav-tab" data-view="fridge-view" onclick="switchView('fridge-view')">🧊 냉장고를 부탁해</button>
+    </nav>
 
-    <!-- 메뉴 카드 -->
-    <section class="menu-grid">
-
-      <!-- 음식 월드컵 -->
-      <div class="menu-card" onclick="goWorldcup()">
-
-        <div class="card-icon">
-          🏆
+    <main id="home-view" class="view-section active">
+      <section class="menu-grid">
+        <div class="menu-card" onclick="openWorldcupModal()">
+          <span class="card-badge popular">🔥 인기</span>
+          <div class="card-icon-wrapper">
+            <div class="card-icon">🏆</div>
+          </div>
+          <h2>음식 월드컵</h2>
+          <p>최고의 메뉴를 64강 토너먼트로 고르고, 매칭된 상세 요리법까지 연동해 보세요.</p>
+          <div class="card-thumbnails">
+            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=50&q=80" alt="썸네일1">
+            <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=50&q=80" alt="썸네일2">
+            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=50&q=80" alt="썸네일3">
+            <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=50&q=80" alt="썸네일4">
+          </div>
+          <span class="move-btn-link">시작하기 →</span>
         </div>
 
-        <h2>음식 월드컵</h2>
+        <div class="menu-card" onclick="switchView('fridge-view')">
+          <span class="card-badge recommend">💎 추천</span>
+          <div class="card-icon-wrapper">
+            <div class="card-icon">🧊</div>
+          </div>
+          <h2>냉장고를 부탁해</h2>
+          <p>내 냉장고 속 재료를 체크하여 당장 요리할 수 있는 맞춤형 레시피를 찾습니다.</p>
+          <div class="card-thumbnails">
+            <img src="https://images.unsplash.com/photo-1551462147-ff29053bfc14?w=50&q=80" alt="재료1">
+            <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxMTEhUTExMWFhUXGB0bGBgYGRkgGhoeHR4XGx4eHhgdHSggHRslHRgaIjEhJSkrLi4uFyAzODMuNygtLisBCgoKDg0OGxAQGy0lICUuLS0tLS0tLS0tLS0tLy0tLi0tLS0tLS0tLS8tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLf/AABEIALcBEwMBIgACEQEDEQH/xAAcAAACAgMBAQAAAAAAAAAAAAAFBgMEAAIHAQj/xABEEAABAwIEAwYDBgUCBAUFAAABAgMRACEEBRIxQVFhBhMicYGRMqHBB0JSsdHwFCNikuFyghUzsvEWJEOiwjREc9Li/8QAGgEAAwEBAQEAAAAAAAAAAAAAAQIDBAAFBv/EACwRAAICAQMDAgYCAwEAAAAAAAABAhEDEiExBEFRE2EycYGRsfAiocHR8QX/2gAMAwEAAhEDEQA/ACuX5R3ZU46tCpGogDUrSY9jwmjOGWkJQQkqbX/TJ87cRRf+EIUSkCfunnzQr8/X3p4p1ttkq0HuUk60geJO8ERxCreR6V5iho42PQeT1NnuylmuEQdLISEqUdQUFRwPiQNtUxKbbnnBgyYlB7t0q1+KNU302kTw2Ioo2y24hCXYWD4mlqG9uO0GPKgGcMlLzDikltV0KAWpXMiFK4WPvVoydmecVR7mrHduW2Vce9/31r1ldW+0ifA2r+qPcT9KHYZW1UfIIu0FGVXq83tQ/D1dW8htOtZgfMnkBxNFAZaQmtHX0JsVAHlx9hS5i84ccOlP8tHIXUfNX0Fe4bSNyB1Jo2kCmxkbeSdiPnWLVFDsPp3BHoautqBsSD6112dweKcrwKrx9op6jga0BoBLKvgPM+H9foPWkrPngXgylwJWEzHEzP6Gndi7Y8z9K5xjHYW9iEgKJvq4kcEgDpHzrJ1kqjR6f/mwuV+DZ9x5SkJEykypUDwgDnEk3NulV88WGxIOo/enkb8ONL2Z5/8AfkpIg6TaeHHpRZkqcaSFiNadcGSrSdpAvcbDrtXnaJxqTPbuN0uQirEpGFhEOoMC/hKdjeAQRtwqtmuNLSLkCEJKQkjgQCb3FgRB3mg2aL/hT3SFEpcAKSd/I+lWspaKW9REkm5XvawseQ2vtVktK1fYjWrYb+y2Za9ImyxHvsfeKOKNKeUL/mGBYERTZiT41f6j+Zr0cMrieH1cNMzwEGvZqMGtiaqZDcGo9dbE1qq/OuCbJNavLAFZVTMXQBXHHpeJwuIKblIUY6afrBpSzXFj/hykGBLYTI4GAB7Uzdl3wpbrR2WifOLH5KPtSLmOFUwCHnVqLbukoCRBTJA2Ek7Hh61nzLeLNGHdSQsd+WtJaUpTIVqiPEJABvEHjwG9OmWZ+y60vvFAeAjV6cudKgiFuNGEa4ibidvCeBhVv6TU2GxDQQlxUJWDuBHHf2/Op5MalTfI+PLVpcBvs/22dShLJa7yPhUFaT01JPACNqnRmXeFbOJQJXJnnaLciLUpZEC3DpAUgnRrP3Y5cx1FMn/A3MUoFlwhAuFkWVMiAN/W3rQnGOql9xo3VsSHsboUU76TEkqvFuBispld7MhJIU2sEbiJ9jxFZWj1YeCPoy8n0DgwYSpwFK42mT6xII860fbSkLhPxCSCox7XCfarY0CCSocYKoPqAflUGPxKNJOjUOM7e5tSznCMd2r/ALJKMpPZAUYlogoUo6VgANKTpUmZuk7KMSbcqpZvhiCw2DrhVwTKgADBN9v1qriyVuBYKkgKTPdhJ8AIKgVE2RAMkXva5AovlaC486+RAUdKP6kpJIV0kn8qGB61dAz/AMdrKfalUNtjiVT7D/IoTha37RY0OYgpHwtjT6/e+dv9tZgkkkAbmwHMmrvdiwVRCeGIAKlWSm5P5AdTQLNsymVuWGyUj7s7BPXmaM5pFmhsjfqrifIbCuf5xiw4+ElaEoT8OpSRqItaTczb1FJOTWyKY4qT3PMV2gUPClOlXUyI57dRQvM87ebBHfDvFASlQMhJuItHDz22qnmLjin0pSdAAsSmRM9fP5UXxWWoJSt06y2JK9tr3iBA61F1s5bmuMWm9PYC4HOMSp1Les+NUSZtG9ukUzZJnbjbkrVMHYkxynp5VBmGKQlr+MUiViUC3BXhBI/FBPvQMYlPdhwoc7s21AApF44md+FCNPeKr/ZTM38M3ff6HdMpzJvENyk9FA7gjf8A71BmCC3PLcHnSD2MecbUAo8Y9o36ifka6dnWG7zDqjdI1D03Faoy1xtHmzj6cqYP7N4vWhxHFKtXooR+af8A3Um5Dhyy7jmgJIc1InaCCR7TXuXZuWHg4LjZQ/Ek7jz4jqBU3bnvED+LwkLS4n4h7G0b2gg7EVn6iDyY6Ru6PIoTaYJSvvX0AoRpTdQKAenHqRQ9/OtalSsJ7tak+YB8Ppf5VfxWWJEKbcW2VxHiAmdheRuePOgDWCDS8Qjuy+swCpSgAmb78zIuBWDHGDXyPYlPdNHuYPDFhAUSkgzqSJHKx6mrzrCmtAaJKCIOoyZvfkD06VTwLPctK70oBmegCjtfeDwol2dx38S6lhlCnATKl8Ejif3zqjjJvTBWkLqhGOqWzD/YHCLLKFu8SVkn8Iv+Q+dMK1kyTxvXuLeSj+Q3EiAuPuxsnztJ8gOdQqXAJ+tenGNKj5/LkeSVkOaZm0w2XXVBKRx5nkBuSeVcvzz7QcS8SnD/AMhvmILhHMq+75J25moc7xb2Y4hRRBaanu0mYMcT1Udp6CjOAyBtkhxfh0kFSVQoo8wmJIPD18y5RjyTUXLgTX8vxTsKcLq5MArKiSSJ43Ji9TKy3GYbSUqcbKkhYCFkGDMSAZBtMGnvFMtIwxxKitQLqEhUBJAUqVEqSJ0xBE3kj1q5uypSw2HUkqhTZNwbISgzwsj3JpPW1cFPR08g/JftCxDCu7xaS4niY0uJ47WCud4PWnXEZgh1tLjagpChIUPn5EbQbiue57lzryEvqgqDYDgkSLqAkceE8p5VS7KZoWHe6WYadMGdkK2Sv6Hp5CnVSVoVpxdMecHmHcvIdF9CrjmNiPVJIpp7TZd4kY9kF1ITKkJ4gpICwONjcb286QsSshRSbEEgjqKOdle1ysN/LcBWyTsPiRO5TNiOn7KuKkqZyk4u0JzOXh910IYUqVqKdJKVCSTdKrWvy2qll2W6nlpdJ0tJKiFEG4tHIXrqeY5Hhsd/MwGJQ06fjRcap/EiQoEc4IpWd+znMmie77pUgpOkxIIjYgUmiasp6kJNKgMMwbUUtQAgApnmTuYFt5NbZV2oWw4k3P3FgbKSNldCBFTM/ZzmEgdwCOJUtIAPvMdRTNgPsrMd5jcSEJG4bNusuLEfKhHAnYZ52thVxme4pa1LQ5pSTYbwPOayunYXNMnw6AykoUECJ7tS54zr0nVc1lP6L8ol67G97GISfGiHDOoNjUImxkgCTAN71pjXw41pMmSZECem9hW4CeY9xUT2NZQLrHkLn2FNoSsz65ALCZWtTnjsj8IvPLUrdXlt0r3tZ2gRhG+7bILyhCUj7v8AUeXSqOedrHIKcM0Qfxq+gpTy/J3XHC45qUSZJVua5bKkFK3bLuXtGBNzTRkKPGVH7qVEecR9ahwWTmbiKOYLDBChyMg+REfWiolGxczp7Q0tcx58zYfM0iP5ElUKdEtpGreyoi3kbDymuhZ+3pZcSpOoAEEfKfLrXPmceCpTAgANKCAOJBQoyeKtKTf+msnUSauvBu6KKk0nxZSObMIKi4oBZO2lRMRaCBA/xVnAYn+M1pSChtBBWTErnUQkDgnwyedtuI7D5D36i4oK0J3gWtzNWMEwkl5pDiUJKhCQPF8PMmDM7UqjHTtyaMk2sjb4shz/ADRpYGGSJQFDWqYFpsD58ap5e28VFlaiMOyNenhAuIP7uDU+Z9n1BIAX94Da0XvE9Nq0c79oFpKklJGkk3MAyL8qfZQqD+/5J6tU9U19vwXTmyoQpvZsAhV/HuFwD90+HrMmu19lcSXMOlR/Yj/NcU7IZI5isQG3VfyxfSn4TcW+fGu5uJThsOYtAgDqbCtOJUjBndy9zk+ZI0uLA2CjHlNTZNnzmGJAAcaV8bS/hPUH7qo4+4NWMzwZN6ELZNKcM+HGEeMs4kMqP/pYiwHIJcmI9SelU8L2GxAxDrx7p1Dg2QvZQiDJgG0+9ATh5rRGXCZj5VL0Mbvar8GiPV5U07uvIzY/sy3oUjEPMspIuNWtz0Qmb1WazVvDN9xlzakBXxPrjvFf6U/d89+gN6qYbL+lHsvyvYxVMWKONVEllzzyO5HmTYRSUX8yetUu2eMLeGdAMEoInlrKW/lrn0psQxApF7e3bf6IQr0Drc/nPpVaJJi9kK2WAlS3FFS40NNfEd4m9ucnaaJZZjGnCQtRaWhy6VJJQpInTB2NzM7kpnY0O7KfwbDiNZGsgKXJKiB91pJgDUTBVHDw85v5k8y84hOHHcPpVDPdi6t7adQAN7nznpGaVuysJOlQcx2GfGDeRp1EOFahA/mtKSAdI4REXv4etLOCfUGWneLUjb4katEG+10meETtNNz+KcbabQtxAdTJCkWQtQmykzJTFylPESNgCIzDEYYp1rbjUFIUgkjSVfFcXvb2BipbJJeP+FE3bb7/APQ1rbUCFo+NsjUAJkCxtbeQN7VyntDl5bUApJQSkEpO6TcEe4MdCK6hlubtIb7t1Eju9TZEatChYEACFbehTx2572iGtRcE6DABJJ2G0kyYirYnTJ5FaChfLrTLvFbQ1HmpJLaj6lE+tRTVnIsKVYJj/Ssj1ccr1zCEHaqPkkD1ImruGz7GN2RiXgORWSPZUitSxVrB5K65GlFjxNh/n0musFWentZjyIOKc9NI+YANUH3XXSC64tw8CtSlEepJpja7Jn7zqEnoCf0qU9lj91xKukR9TRtnUAEsWrKakZTAAIM1lLqDpZ1F3DA8KrO5aknai2iq2LxaUW+JX4R9evQVdkUDf+Dp/DVhGVgfd+VeIxKlLKVuhuBOkCDFrzyvvNToxTAUEl0yTAJVZXkeNT9WHlDaZGv8PFRqboqjSRZUjrf86p43L1EamjCvwk+E+vA/Kn+QoLzLBhQ1RNoUOY5/Q1yztP2JcaX32EBUnfRPiQd5TxI6b+fDp+FzcFRQsFC0mCk1YUwD4k7cRy/xUpRUisJuDOOYPOUtYZRLSu8UVIWNJGlRII085SFSmLWvS3icuW4pQLQTIuVkEiLzAsDFdozfs2hzxBM31R1EiY47mkTtbgXtYQhqygCpVgOV1Gw5xUN4OqNimsidvcDYVsBICVFUdfveXDyq3iihLI79xGtS5SmUhYTYTb1N+nG1T5L9nrz5Kg8UNk2gXUBafIwa6T2Y+z/CYUatAcc4rWJPz2oQ6dt22HL1aSUYqqBHYPJ1ay4B4LQqEgGJJ+ECYkD06Vf7R5sHXe6QZS2fERxV/j61F217ZpbBw2FILhspSdkcwP6vyoFkbOlN59aulpVGNtzlqYUWwCKgORKXcCBzO1GcPhwkalDyH61Fi8QYKiYSL7gfnAoqN7nage12ZR95z2A/OatI7Mt/dcPqBQt7tK0hQASpWrZRIAPvcDqY+VDWO2s4kShX8OoBJAE721zpB34cp9OWgOmY1jJSm/xD98KstgARQDI+07DTi2y+Sx4Qz3p8Sd9SSojUBsRrkxudhTe5h0up1IN4tGxpq8Cu+5SKxFJPaJKdR1/AoFDh5JWCkn0sr/bTaokSDuKU+0CDJ5GlsKRzQ5a6093emVg6VCYE8wrlxB5ERTrhc3KZbdKQ8gaVaIiJAK08QYJFoPHiKD49ouBKdQQ8izS1GErHBtSvuqH3VG3AxY0sO9606dcpcSb6hcHrPD6UJQ117Dxnov3H7B5Ey8UqS5pWVFRknVpMxF5kWPvtU6Mihep/EoLSVA+GdaoMxcQLxcHb3peyrMmC853ralYZYKZF1NmSUrT1E8NrHpXuJxuGw0lgl1yYClogQNldZ5dKRxYVJBjPRrX3wQUBPwlaoIBidvLlaN6WcwU6+UBIQe80pQEiLquCRNjG52sagx+a4nFwkm02ShMSeFkjxGjnZfJw05BhT6pCyLhpJ3SCLFxWyiLJEp3Jh4Q08glO9l9xxwWXJQ0hCbpSkJB5gAAH1ifM16rAdKJtiBFbtNaiBw4+Q/cVzFQOwmUIHjWBHAc6necUbJsOQok63qPIcOn+KWc87SBvwYbQ4viZBjgVGDJCbWF/ENqLqCtnK5cBNrBL3g+4q0jCqHA0it57iC0o9+NSPiVoTJNyPDB57cbVph+0uKwzhW4vvUOSooJ06eICOAgcIP1oRzp7DSwyR0ETz/KsoF/45wx/GeukfrWVX1IkvTZ1rMsVoASn4zt0/wA1mX4AIGtfxbk8qiwSO8dUs7DaiWMRLaxzSaZ7Kya5o5FnmLWvGPkEyptLKJNgXFhCdusRyqDtLiih7CoQ4dTirTcJsU2t6edCMJjSrGaXFhTS8Sm4TpJKHklIMWjxkyN9POrvawBTodkDuWPDvGtZQge3iPHavCnFJxUuXb/yelB7tIL5tmyl/wAYUq8KUsIb5Ba06lH+0J9zRDsLmLzawy64lZPEHpI3pLwanFIIJE4nFBbSeOlOlsKI/DpTYciOdF+yIUcaQqCUFI1f7QAB6AT1NUhccia7Ur+1/kR04u/39o6F2xybvWu+bH85sTbdSRcjqRuPbjS92fzkqgE3FdEZ2FcozjBnD4txKbJC5T5K8QHpMelerNU7McN1Q9NvA7j1H1FSEtcY9jQvKXNSBVt1NMLR5is5bbnQhSj0ED3N/lSV2lz3FvAoSe7QeCJk+at/aKaVsSagVlgPCg7GVHP8oyM6pIsKcsswN5Oyf2KJJy8DapWmdIjnf6fSl0jahb7XZqWUeAgKMmTfSkXKiOP1JA4zSM5j3nEtlXeLDg1AKjVIJvpukDY+XMkEX+1mIfcx5ba+5ZVx8MbgFJvJMdY86H5hhBoYD6yoeMlwgainVJuYSDpBmxjTwkGlm7ZaCSiUHUqbStSlpU674UBWkhKjp1EgCFLjSm4Ma7cqruYV1AQ44+6oqIAAUUpvxIAlKRbluKmdxGktIRhx8WlKAI0g3Op3T4XDCjAFoBIkQJsV3bJUHHFOOgKKUCY8V/EBOq48Q8O3MTQ3R1oH4FDitetcpCtIsFar/DF4VvvPHlTr2W7WupWlK5DVgkLSAq8BIASL+cC3lNI7WJ75u4CQFgp1KgJICpTKjEAGd58Q6VXS6SdTaiFJIJ0qUZE8TMcdoBoq07A6ao71mKkrSHQImyqA5nhdSaLYcEoKelVUiQOtNLknHgQsfgNwRvQ97Cq0hKkpebFkpcmUjkhxJC0jpMdK6Fi8AFcKEuZURwpQiIrKmhJCcU1zCFNrT89B95rT+Bw4uUYlxXXQj5y5+VPX/DDtFTsZPMWprAJOHUs+FpsMg2OiSsg7guq8UdE6QeVOfZvJu6QCRejeCyhCLkCiaGxyrqBZSVbcVJlV0KVzVHoI/WsxxASakyEyyOhP5D9a5fEgv4WA+2OetYVvQ4lZU8lYSEgbCE3MiLqn3rk+K0kg6dIskgG258UcAY2ro32tp/ksf/kPnZKtvMxXLXiSkXIkG3n0teukrZ0ZUi5/FEJIK7Tbl5WrR942EmBbfcdONzFZgcMlxKlKI8AMJFphIvOwAnnMwADUb2jUHEpGog6kJEJSRYEb9Dy3pElY+9EBjib8bmsqZoJgamgTxOqPlFZRv92BXv8Ak+tMoRCPMmgXbLtUnDKDABK1tqVbgAN443jkOtMWXCEx1Ncs+3NogoLaJccbKCRaEiSST5W9TVct6aM65OeZbikOr76AprDr1KCUqHeFREETABEE3N59iGc52nFgkQhKWkgkcVBaVWjohzfblQnMcM5h8KlCmw0VAKhJmxJICiZMnUo7/dG4SIBZXgluEkCAm5J2AHiUT0iP7qy+jBu/HBd5ZJbdxwy/N0DEpxOlXdIAbbSCNkogadRAICiJM7DjTD2CxWp5aiIK3ARMTpBIt08PlSL2lwYbbZQFFRNjxFh4iOmokR9BRj7I8KpzFgzZtJJN+FgD6x7GkfTqe8dgrK47M+jWdhSP2zYBxJP9KadMCSQJpMzl4OYhxQ2mB6QPoa25OCOPksZA1CKIlMmosrahAq6lN65HMqoZvU4RUqk1qBXAIHEioSLfvrVh5NV2uVDuE5h9oim0vm0qWW0qCpCCUyUhRCTKTKTtHhExFAMwxyVoaUEkDQpKVNt6g0pCiAACgSgdIUN4jZ/7eZcoqadQmTdJSQdKp2BIkp3PjgxF7TSHm6lMIaLAWyQ4RJOhY1K8aVLnSb2JkAiCbGam3/KjRBXGy0tyGg42tSnFk92VKUEqKRp3VxjvJTJAKZ5yqvuIQuVOpUQTqCSolczPjIACZPUm5rzEY8LUe+Se8SpJhRiY1BYiIk+G+0cDVNTiYmSZmUqAIk34AQd+G0RtXRjQJSRjmLQ8oANwBskToTvJJJ1SeJohgFBLyVIMeIHbUI2Bgb7XH5VSxTqNIKEwBAIvvvIBABmDuOIpl7K4EvPthAI2UpQEQkQSANgDt/upqvgW65OsZXdsGI8G3K1VWNhRJ7+Wyo8VWHmaGIFoFdLkEeCWKo5jmTDIlxYE7DcnyAB99uoqh2pz0YcaEQXVCeYSDxPMngOO5t8XNsfiiVFTiiVKNyTcnqaFCuVDpie3LYP8tknqtQE/7QD+dRNdu1zdlv8A9w+dIiHtRsoDr1MAD3N/I1JKwnUSDCoIBF97gxETA34iubSJ6zqmW9r2nSApJbPnqT/cLj+2j7boIHXbkfI7H6ca4dh810m6VAjy6bjhXTOymdocHdkiTwOx/wA9aYZSDWakBBqr2Txg1LaPHxJ9LH1iPY1YzfDkJN7HY/Q9fz38kRWMWy6laDCkKkcuo8iLUjdOyq3QY+1nBvqbaU2lOhtRWTJ1g9BtpETvNxXNHF94NaQAu0g7H/vFd8weIaxrAUNlC43KVcQf3cVyrtj2NVh1FTLfhJBN/CN7AbxImP8AFNNXujoOtmBXsf3rLgCAhRtERc6ZlRsICQb3M9BQ9DjXxKIbPBKQpR4wSVTcnlyqridQJSmd+R34mOv6VqnDrJ+FRJ5JP6UsYUtgynueOFtRJ1m54Ij5AgewrKuoyZ4idHub1lP9f37E/ofXLQg9DSX9pzrUsIUAVnXpE9IAI3IueFOaVc60xODbdBC0hQMTbeLifI081qVE06Z87duAt15pgCCtwJUSCAkykJBHIBWo73VvaoVltlh1IVqWtxUGPhQBp9VHSk/2zxFdUxX2YJLveh0qIWFAGdwAOZGwiwHpVHHfZX3hGh3uxF/DM3kHcXBrOsc1SHck9zk6Hj3LaXFanHVL0KJkNNBUGOqltrHkkRE08fYphjreI+FKUDhdRKifbT/7jTLhPsfw6UaVOLV4Y5AGIKgOfrRLJslw+TskuOBS1XhIhS42SlM2Akyo8z0FVUdILsZM7zH+HYkf8xfhQOp4+QF6VMGxJjeq5xLmJcLztibIRwQnkOvM8aIPrLKLfGob/hG0+ZuB5HjFLKVux1GlRZx+coYGgDWsbjZI8zz6D5UsY7tQ/P8AzAgckgD57/OpMHgV4h3ukGABK1b6R5cVEiw6HkaPMYDCMLDaQnvAmTqTqWoTGrURYDkIAqUpyKqMULmAz56f+cpXmZmC3z8le9NWAzNRsuDwkeZG39v9/Skjtm0hSHVtQhxAKkrSIJi8GNwaAdkvtDKVBGJgg21cRwvzpoZPIJYn2OzLcBFUlqg1YwpS4gKQqQoSFD8/3+lBse+UzNiDe9VfBFchXFYZL7ZSQCOIPA8PnXLc17I4hBWkw4gDwpvOmSSm/IHwkzEEcbOTGblBlKr8jsehFGcNnOHegL/lr/q+E+Sv1pbUuR1qjujiOMwrzaw33D3JJWAbcBr5COBMAQbSKE4JnWrSlvWVWkCJvxIABFt5r6UGVtqBslQO+xB/WoWOy+EQZSylPlYe21PoFeT2OFnspi3VJSWQETZKAAhPXieNdO7CdmlYdLiVAaJGhwyFERcEG8A7eZ6Uz4/MMJhk+NaExsmRPoKRs+7WuYo90wCho2J+8oemwoNqJ28grmOZB53S3dtuwI4njWinNKVLMwkTHPkPUwJ4Eiq+XYbu0AVO+nW1HNX/AOw/NIPpSLcZ7I5T2pWoqlZJW6SbcYjbkLgAeQ4UMGWuqQrUQlQ2ST4o3kJ4noOdXu2mM/8ANncoRCQAY23uNvEfao3wpxPeKdCCUgBKzIAuFQTJIjjuAD51zfgzSe4OwTULV4TKVJ2I0CAT4iSLnwgcLm9aNYbu9SFBSVLASpJm0kK8Q3kW571tg1d0+gl0KCSJ1AkJjmDuE+d4EVLnOpLqkvElYV8U/EIkRAm4NlTxFhBotvVQCogwFKuVXTYWkyNMGY6eVEshxagReLSI3H7FDrmJOmLE/eBHG3qN+FTBlTagA0QVKGklR1KnkUqi4I96OpcBTOw9m80/iG+5cPj2STzG36HoTS5nmD+8Bve9a9n9bS0zuInzFNOasJUtwRbVP94C/wD50GaIeBFyjN3cI4Vtmx+JJ2V5/rXSMo7TYXFp0khCzuhcX8jsaRcyyki4FAncIRwiuTa4C9+TrrnZRg30b8a9wvY/DpM93qPWY9tq5Xg83xTP/KfcSOUmParjnavMFiDiF+kD6U+r2F0+52NGASBAQkAcIFZXET/EKuXHCTudSv1rK7X7HaF5Pow1qqeBg9K2rBTkyq9j3kfcSsecH6ih7/apSf8A7ZU/6v8A+aNFNQOYVJ3FB32YVXdCrj+1WKXZtKWweIGpXubfKhOGyhxa9bpKlHiSSfnT4cEnkK9SwBwpNDfLH1pcID4HLIImguavanFq6wPIWHyHSnQC4pGxbZ0qHGD+96E1SDB2z37N8yC28UsHxDEFPkkIb0+l1epNRdpc9TOhJ8VxwsLcesfIVyTIMfi2sUpvCgqW8dJb4LiT6EXM8L02592czIILgYb1RcB4KV7aQPnWd20jSkotst5fgl4904dswiP5zn4UngP6j+tOeBy3A4ZiGmm0JHh1LSNSlbXUq5JO1R/ZlhBhstbUR/MdlbpIvqJIg8tIATHSqXaPHodUEqAVpUFAHYEbHeZoNadhbc2YznqcK4gBIDThIKRYJNjKeAkTI2twJNEu0SQVJWk2WmfOP2K5xmWO7zENtpM6AVHpNh9adu/JZZB3GoekjmBVsfwE8iSnsCcQwRtUTTh2I96NBANejBBRgD0rqOspMdCpP+lRHyBFR4zDPqsHXI5a1frRb+Gbb+NYBHAXPyt86kTjmB+Pz0/5pXKC2bQak+BN/wCALKpgkk7mj2VZQECSL0x4d1pfwqE8jY/Op1NCnik90I5NAZ8QK1y/xN+R/NS/pFX8Y0IqpgEgEp5/WIPuAkdV0e4LtHF+0SP/ADTyFgjSsmYufL0Pyqs8tUnSEkWlxRtqAkgk77jaLAcDTJ9oWSujFFxAGlZ1evEecg0vqxaEEKaSA9FlK+BEk3Sji4Tvw2gUjTszyW4PxyFiA6FDUkaRYWkCNO4FrSJNudXsS8V4ZHikoBRqIJlKSFJT0j8gagCAiXXDLyx4Tq8SFW8UTqJk2NtrbEVow0FNhlCoJJUoqItAVsBsIuST6UzppPwAjaxSd1pm5JHAk3Nhv5Har+T4M4laSo/zFqPiKogzIiBOwMfuKmNa0qGg6tY4/e2Hw7xbjenD7P8AJ1d8CYCUDVa99tz5n2HM0ra5XIUrGo4KFz+9qKPjxH/S3Pn3Tf79KtIweo3MTueQ3J9BVIu6lKVEalFUcgTYeggelUZeJotsG0VRfytKuFEI416aA4E/4EmrOC7PJJAiT+/lRRNFMOgBJE3MaucG4T0kXPpSykoq2clfBQTgcOLaVqjikCD5SKyjacSkCAnb98qyp+tHz/QdMvA0k16mtRQjOc40ShB8XFXLoOvWtTkluzOlYUxOKQ38agOnH23oc52jYH4z6D6mueZ72hDZ+8patgLk0LweZOuq09y8D0T4f7pAjrtWd59ymg61h8+w67a9J/qEfO4q+eYrmQyjEBBWSkQJIBJP/SJtyo/2Yxy0+FWx4cPTkapiyrJwLKOkaV0u5hhtLiuRuPWmJyqeLZC/MbGnaOTE3IshbwzrriR/McURqidKIBCdrAqknnCeVWcRhlpdK+8JRoAKIiD+IGLzxoriMvXBLZhRgxa/QTa/086FY/GlAIdSUDiSlV/K1/SawyxzU9uDTrUlYldrO1L2BfCAoqZeTKkk/CoGCpHKbSNiQeJJpYxXaxEHRrWtXMQB51d7VZZicwxAcaYWG0p0oKhBIkkqg7TPsPSmPsf9lagpLmIEx93h6860KEWuAObXcGdickcILrgJccM+n7/KnR8AEIEQjw257n5yPSiGfZgzgx3DMHEKEW/9MczyPIetBMMnw0722Jp3uEMO2VGBx+XMnpW7r5PgaMJ+8viry5Ctm0aWrWLnHkgb+5/IVHljpeX3eHANjC1SESN4sZPL/tWbPmUF+2w6ZPdII4TJ0gSr1NRrSxIgKI5hBv5EnbrFEEMksPazqUEFMD8Wm/CN54RQ3A5dhClRT3qlKEnvAdaItYgRAnrvxFeXlyyfFLv7m7HCKT1W37cFTC45tRMhKTMBM3PmCZBo5hVBQjY8juKW8XlbKklTy0K0D4ym6QJJlRvw2rxjO3DwT3FghaVKUtIAsXJuZueIjjT9N1UsfxO0Lm6e1cXf0C+Pe0mFWoYcUN/8fP617iscX0FKgA4gTb5/L6UrvYkgxXrqakrXBiS8jjjsGjFMmbmLxz5gcPp6X5znPZlSFhQJSRcKAEK8xzo1gs6W0oFJ9OdMuFzXDYkQohtfI/CfU7eR9zTciuJxlWVKTrU4lZJBg7wdtRG5qHG4JTiyEtpQm2lIJiBA4mSq8z512nG9kkqukb8RsfpUWA7FyfGI5Qf81yi0yelHO8jywwhtTaVrT8JMkid5m0V07s/kgZQABc7n6eQothOz2HwyStRSgDiogD3NL3aDtw2iW8H4l7d6R4U/6RxPU286MYKLsKXgvZ5jgj+Qn4z/AMz+lO+nzVxHK3GqAO1CMnbJGpRJUbkk3JN786LhNdyVqjYGtq1T6VuKJxLgwC4Adtz5C5/T1rbInCtBcUZK1qVINrkx6AEAdAKzJPE85/ShI/uM/wDxrXD4bWytvUpFyNSbEDoaydVxH5lMfLLySTuIuePW2x4i9ZVPQ/fxIAkwIJtNrzvFZWe0PbHjH4jQ2SNzYUo4lsqMc6Ys3VOkdJ+f+KA98O+S0CdSgTbgkEAnzvb15V6WRpK2Y4+wA7PZewtbuIxEmVlDaOYSSBAFyZSomPymm95ZKYDSSk/CkCJTAgGQLzw8uFLWaOAHvFiCLNhUhMTAH9IEgqNptfiCOTYlxadYTJ1G0puTKgLGIuneLxsBXj67bb7mtR4NMDnPdvdy+hSdV0FVo/pnZQ686VTn628e4gOy33hABiEmxIF7gat+h5UR7dYNTjHjUFYhSvAAUhSU6vERp4ADcnc1WwOGCMP/APTnw21ApvAOwEpAFtxz3NdGTgrR0opvc6Lk+YfxDKiBC2zBHMgfXaoGsxB2ob2QU4jEAKdltaFAJnwlfhUCnlYKBG1xQrMVqaecCTZK1AD1Nephy6sakQ0U2htDx4ex2qROZAboPmkgj5kH5UsYLMSd6LoXNXUhXElxnalhoSUOE8gkfU0mZ/8AaG+sFGHR3INtZuv04J+dMGY4IKpadyK+1K5MKigNk2EUVFaiSTuTcmeNMpECvcPhdIitcwMJpBwvjUICBr+FKEg8thv0k1cwOLCWklrSBChOmASkQN+FV3VBbGo7KbBPsKAZvnLTLCW9fjKtuMRpPQXn515P/oa1Naef9G/poqUafFr+w3gM5Q8XyyrW6W/FAUEylS0pgkAEn3gCpskxToZ1KQDrAWFJgRIBKVTxBJjoI4XD9llIXhClKQjSpSSEzJX4SFTxJlJ9aFPZ63dl8EoB0qUhUKQdxI4hVrxxrLqkp1Fb1yGWNSUtPCffmhhzB0kwsoPESNQseIi9BU4tC3EuJQhJCVJeQLAnaw2IME+1D0NMtr1IdW5riAspOnh8STB4cBWjikIXOgKJMnxRBgAEzuIHvRacu4sZOO6CuBw4aUghMapkdDz+VB8exBo3gXdbbKuadVuV4+UVXfak17eFfwRilyxYdRUW1GsRg5M1SXhDO1VFPcDmDrZGhxaP9KiPyNFMRnWLIGnEOj/d9aFIYNEsHhySLUUcBccy84dTq1rPNRJ/OtsrwClKsCY5U3NYBJCluHS0gSpXHokcyaFuhx/wto7trggceqj941wUi02+2iyloHSZI/tmrLONbVs4g+sH5xVJrs0qosVkZQJI9a6mNsGorBQPL8WpEAmUGwPKjZVXCtUe9lV/z8SOiD/1CiOBulXRR/M0vZNiu7x8E2dSU+vxD/pI9av41xxtatBsTMEWqHUYnOCrsGElGW5bXiVyYYWRJggtwRwN1zfevaGjN3vwJ+dZWT0Mvj8FvUiPWME6T0j5/wCaTXgpGPJ4qCdIOxFrTtOoK9xTs1BEe1D88yEPJHBSfhUNx/ivQz4nkhSMcJaZWJ3aPL3UONuohLA1ElKCotAq1GEDfnsfLjQvOsZ/JDmAQ6lbio79aQlKggAQEG5AGkTpA4U8B91oQpIckXQTBMASoHb04zvSK1jE94tGjT41aJt4SfDebAD2k15auG1GuO/yIstwS9IU4svLiFLVfYzAMEabmItTZkcaglQmJuYsIv8AvnS8vHow40KIUlRkpBFhaLkXJngBH54rN1rSoMNKQlQAW4szpmBpQmTJg2/KpOMm7H1rTQe7I4hTuMaaB8LRUs9ISsR08SxbpWmauBbziuBWojymr+Q5cMuwi3lT3z1k6jKpPPyF/TrQduvVxYvTgo/Uyp22yVlBBo5l6jQtkUQ79DIlwxOyQJUfTgOp+dWRz3C6ETWi8KOVL73ahzZttKRzVKj9B8qr/wDiLFTuj+xP6U1o705Bt7B0KzDB2qzhM/UTDjQ80SD7GZ+VEnAladSTI+Y8xwoNA3QNym7Smjwn1Sf8n5ilHtFhH0lOlhtaQIJWklQja4uaby2UqBG9XmVoctsrkePkaz5unjkpvsWxdRPHaj3FfAOtpQ6lwlrvClYkQAVJAM8oKY9ulCc07NOLGpKkKc0xqsQsdb7025n2dC9RAOopgifCR/p2pKzLKXmjp7lxKRstKon2m3nXmrpZ45Lb6r/NmmfUY2rj+/Iov9mHQIW5eICAokR0natuzzSncSUueIAXFiBB4kG87fs1qzlT7xKPFB3N/rTM88xgWgkAa4gJEaj59JNbIYJS+LgjkzKtuS5i3AkhIAvYAcB5cqiImhOBeU4e8Wbn5DlRVBraZzO6mtDg6nSqpga44H/wdW2GQkTU0VTzZ/S2onlXHA3tpnXc9zhwBsHFzPxL2BjkBUWA7SrKVKSW0toJB0oOq0R8RI3O/nQb7REKOMUVAhBSCFDhEpExtcGgPZ94qKm0yJGwiORJ5bi9QyOW9M9LBjxpR1K7OnnGrX3awVJMyrUSIEGfDtP6VWx+IskKBc1C0nqL2ERF5qnk+Yd20pDigVJFlagEkCdN/u8vXjRPFLt3iSFJ7sEAGVEGDI/pj3NedJyvds2qKj2QoYNSG8UtM+B2A2dRImAdMnmdj1jzbMvxetBB+NFj1HA+YpUxGIC38O4EwkOgD0UB8pPoaYzh9D58jXqYHcDyeqhpyfMH9okqBS4kwpJBB5EXBp0yl9GLZS8Ik/EPwqG496W8wa1pIoN2fzlWCeIVJaUYWBw5KA5j5j0q0XRlkjo/8AjlWVYYdStIWhQUlQkEbEVlU2Jl4LorgsSFWO/51lZQiBmY/KkOgAi4MggwR/jpSlmnZhxRMJSOSgRPnG3uDWVlJPDCT1NbhU5JUmDmfs+ecPiegcQAkT56RejyOz+Dy9s4l8qXovJlUKNvCnYKJi/uaysoxxQitkDU3yJWOz5zGvd6rwpFm0fhH1UeJ/SrLaqysqT3LoKNnu0BcSpXwA7CLFR9bAdJ5VT7gqJKiSTck7mvKyqpbHIVs8zvQ6lDaglCZLiykkiJEBPnx/ZsZZmSnD/LWHDexRE2MXtpkjrWVlYMs5VaZ9Dh6fGo1V/Mv9l+1LL6y04nu3AYgSQTMRMb/LrT7h8PG1ZWVtxNvY8XrccYtOPeyDMGNJ1cD8jQxaJvWVlM1TMi4NkYtxHwrNhsbj51Uxnah9AshtVuIIrKylbDQo5r2qxbsjUlsH8AE+5oVg8EVq1KJJO5Jk1lZS2FIYsWpvCoBeJkiyEi59dhQs9rHDZphAH9VzWVlXUUkTcmRo7YPhZQpDRIuRpj5zR3K+0LbxCVJLajyuk/Wvayi0mC2GFCDBoL2iVKCK9rKgyqBOYYVzEoadHiSUhCxYKBTqBIJ3BvSzi8nW2dQBBiN0733vseVZWVKUatmvFlltEttvrSlWhkEqMySm3pb61visdi1JUdZQQkgwRcCTFuFzWVlShCL3ovkzz4LXYLBrfeSXDqQkatJOxBEfO/pTnmiYWT6frXtZWrGkosxZpNzV+CkTQbOMEFXG9ZWVxMXNbifClagBwCiB7A1lZWUbFP/9k=" alt="재료2">
+            <img src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?w=50&q=80" alt="재료3">
+          </div>
+          <span class="move-btn-link">재료 검색하기 →</span>
+        </div>
+      </section>
 
-        <p>
-          오늘 땡기는 최고의 음식 메뉴를 직접 선택해보세요
-        </p>
+      <section class="popular-section">
+        <div class="section-title">🔥 오늘의 인기 메뉴</div>
+        <div class="popular-container">
+          <div class="popular-card">
+            <div class="popular-img-box"><img src="https://cookpick.kr/wp-content/uploads/2026/03/%EB%A7%88%EB%9D%BC%ED%83%95-%EB%A7%8C%EB%93%9C%EB%8A%94%EB%B2%954.webp" alt="마라탕"></div>
+            <div class="popular-rank-box"><span class="rank-badge">1</span><span class="popular-name">마라탕</span></div>
+            <div class="popular-likes">❤️ 1,234</div>
+          </div>
+          <div class="popular-card">
+            <div class="popular-img-box"><img src="https://media.sodagift.com/img/image/681960828892923.jpeg" alt="로제 떡볶이"></div>
+            <div class="popular-rank-box"><span class="rank-badge">2</span><span class="popular-name">로제 떡볶이</span></div>
+            <div class="popular-likes">❤️ 987</div>
+          </div>
+          <div class="popular-card">
+            <div class="popular-img-box"><img src="https://recipe1.ezmember.co.kr/cache/recipe/2024/07/13/46a96150aef57278c642ef250aa9bf221.jpg" alt="연어 덮밥"></div>
+            <div class="popular-rank-box"><span class="rank-badge">3</span><span class="popular-name">연어 덮밥</span></div>
+            <div class="popular-likes">❤️ 856</div>
+          </div>
+          <div class="popular-card">
+            <div class="popular-img-box"><img src="https://images.unsplash.com/photo-1645112411341-6c4fd023714a?w=300&q=80" alt="크림 파스타"></div>
+            <div class="popular-rank-box"><span class="rank-badge">4</span><span class="popular-name">크림 파스타</span></div>
+            <div class="popular-likes">❤️ 754</div>
+          </div>
+        </div>
+      </section>
 
-        <span class="move-text">
-          시작하기 →
-        </span>
-
+      <div class="tip-banner">
+        <span class="tip-label">💡 오늘의 꿀팁</span>
+        <span class="tip-text">차돌박이를 살짝 얼린 후 얇게 썰면 더 맛있고 풍미가 살아나요!</span>
+        <span class="tip-arrow">&gt;</span>
       </div>
 
-      <!-- 냉장고를 부탁해 -->
-      <div class="menu-card" onclick="goFridge()">
+      <section class="cart-section" style="margin-top: 40px;">
+        <div class="cart-header">
+          <h3>🛒 부족한 재료 장바구니</h3>
+          <span class="cart-count" id="cart-count-badge">0개 품목</span>
+        </div>
+        <table class="cart-table">
+          <thead>
+            <tr>
+              <th style="width: 40%;">재료명 (출처 요리)</th>
+              <th style="width: 45%;">쿠팡 원클릭 구매 및 메모</th>
+              <th style="width: 15%; text-align: center;">관리</th>
+            </tr>
+          </thead>
+          <tbody id="cart-body"></tbody>
+        </table>
+      </section>
+    </main>
 
-        <div class="card-icon">
-          🧊
+    <main id="fridge-view" class="view-section">
+      <section class="fridge-search-area">
+        <h2>냉장고 속 재료로 검색 🧊</h2>
+        <p class="section-desc">가지고 계신 주재료를 입력하거나 아래 인기 태그를 선택하세요.</p>
+        
+        <div class="search-mode-toggle">
+          <button class="mode-btn active" data-mode="menu">메뉴명 검색</button>
+          <button class="mode-btn" data-mode="ingredient">재료명 검색</button>
         </div>
 
-        <h2>냉장고를 부탁해</h2>
+        <div class="search-box">
+          <input type="text" id="search-input" class="search-input" placeholder="메뉴명을 입력하세요 (예: 김치볶음밥)">
+          <button class="primary-btn" id="search-btn" onclick="renderFoods()">검색</button>
+        </div>
 
-        <p>
-          냉장고 속 재료로 가능한 요리를 추천해드립니다
-        </p>
+        <div class="recommend-tags">
 
-        <span class="move-text">
-          이동하기 →
-        </span>
+          <div class="tag-group">
 
-      </div>
+            <p>🔥 인기 필터 태그</p>
 
-    </section>
+            <div id="popular-tags"></div>
 
+          </div>
+
+          <div class="tag-group">
+
+            <p>🏷️ 전체 태그</p>
+
+            <div id="normal-tags"></div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <section id="food-list" class="recipe-grid-container"></section>
+    </main>
   </div>
 
-  <script src="js/main.js"></script>
+  <div class="modal-overlay" id="rouletteModal">
+    <div class="modal-content slot-machine-content">
+      <button class="close-modal-btn" onclick="closeModal('rouletteModal')">&times;</button>
+      <h2>🎰 오늘의 메뉴 슬롯머신 🎰</h2>
+      <p style="color:#666; font-size:0.9rem; margin-bottom: 20px;">[START] 버튼을 누르면 맛있는 메뉴 릴이 회전합니다!</p>
+      
+      <div class="slot-machine-container">
+        <div class="slot-window">
+          <div class="slot-reel" id="reel-emoji"><div>❓</div></div>
+        </div>
+        <div class="slot-window">
+          <div class="slot-reel" id="reel-text"><div>메뉴명</div></div>
+        </div>
+        <div class="slot-window">
+          <div class="slot-reel" id="reel-tag"><div>카테고리</div></div>
+        </div>
+      </div>
 
+      <div class="slot-actions">
+        <button class="slot-trigger-btn" id="slot-start-btn" onclick="startSlotMachine()">🎰 START !!</button>
+      </div>
+
+      <div id="slot-result-card" class="slot-result-card" style="display: none;">
+        <h3>🎉 오늘 추천드리는 최고의 메뉴!</h3>
+        <h2 id="slot-result-title">음식명</h2>
+        <button class="primary-btn" id="slot-recipe-btn" style="margin-top:10px;">상세 레시피 및 재료 확인하기</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="worldcupModal">
+    <div class="modal-content worldcup-content">
+      <button class="close-modal-btn" onclick="closeModal('worldcupModal')">&times;</button>
+      <h2>🏆 최고의 음식 이상형 월드컵 🏆</h2>
+      <div class="worldcup-meta">
+        <span class="round-badge" id="worldcup-round-title">64강 - 1/32</span>
+      </div>
+      
+      <div class="worldcup-match-container">
+        <div class="match-card left-match" onclick="selectWorldcupWinner(0)">
+          <div class="match-emoji" id="wc-left-emoji">🍔</div>
+          <h3 id="wc-left-name">좌측 음식</h3>
+        </div>
+        <div class="vs-circle">VS</div>
+        <div class="match-card right-match" onclick="selectWorldcupWinner(1)">
+          <div class="match-emoji" id="wc-right-emoji">🍕</div>
+          <h3 id="wc-right-name">우측 음식</h3>
+        </div>
+      </div>
+
+      <div id="worldcup-winner-area" class="winner-display-panel" style="display: none;">
+        <h2>👑 최종 우승 음식 👑</h2>
+        <h1 id="worldcup-winner-name" style="color:#ff4757; margin:15px 0;">치킨</h1>
+        <p style="color:#555; margin-bottom:20px;">이 음식의 레시피 정보를 아래 냉장고 리스트에서 바로 확인해보세요!</p>
+        <button class="primary-btn" onclick="closeModal('worldcupModal')">월드컵 종료하기</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="foodDB.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
